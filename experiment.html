@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#test2{
+			display:none;
+		}
+
+		#test{
+			opacity:50%;
+		}
+		
+	</style>
+</head>
+<body>
+		<div id = "test">test</div>
+	<div id = "test">test</div>
+	<div id = "test">test</div>
+	<div id = "test">test</div>
+
+	<div id = "test">test</div>
+	<div id = "test2">test2</div>
+
+	<script type="text/javascript">
+		let name = "alex"
+		console.log("hey " + name + "!")
+
+
+
+		document.getElementById("test").addEventListener("click", myFunction);
+
+		function myFunction(){
+			document.getElementById("test").style.opacity="100%"
+		}
+	</script>
+
+</body>
+</html>

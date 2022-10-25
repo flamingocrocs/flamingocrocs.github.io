@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+		.star{
+			width:100px;
+			height:100px;
+			background-color:lightblue;
+			border-radius:50%;
+			display:inline-block;
+			opacity:0.5;
+		}
+
+		#circle1:hover{
+			background-color:"red";
+			transition:2s;
+
+		}
+	</style>
+</head>
+<body>
+
+		<div class="star"></div>
+		<div class="star"></div>
+
+		<div class="star"></div>
+		<div class="star"></div>
+		<div class="star"></div>
+		<div class="star"></div>
+		<div class="star"></div>
+		<div class="star"></div>
+
+
+	<script type="text/javascript">
+		
+		var stars = document.getElementsByClassName("star");
+
+		console.log(stars);
+
+		let starlist = Array.from(stars)
+		console.log(starlist)
+
+		//whatever is the input of the function is the element in the function so for instance: function (listItem) { var listItem = array[0], array[1]}
+
+		starlist.forEach(
+
+			function(input){
+			input.addEventListener("click", function (){
+			input.style.opacity ="1";
+
+			} 
+				)
+		
+		})
+
+		// var firstStar = starlist[0]
+		// console.log(firstStar)
+		// firstStar.style.width="100px"
+		// firstStar.style.height="100px"
+		// firstStar.style.backgroundColor="blue"
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>

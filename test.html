@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body{
+			background-color:black;
+		}
+
+	#stars{
+		width:100px;
+		height:100px;
+		background-image:url(stars.gif);
+		background-size:contain;
+		background-repeat: no-repeat;
+		opacity:0%;
+	}
+
+	#stars:hover{
+		animation-name:opacity;
+		animation-duration:2s;
+		animation-fill-mode:forwards;
+
+	}
+
+	@keyframes opacity{
+			from {opacity:0%;}
+			to {opacity:100%;}
+		}
+
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		
+	</script>
+<div id = "stars"></div>
+</body>
+</html>
