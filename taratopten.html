@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+	#tara{
+		height:200px;
+		width:200px;
+		position:absolute;
+	}
+	#taratitle{
+		text-align:center;
+		font-size:50px;
+		font-family:"impact", fantasy;
+	}
+	#taratitlephoto{
+		position:relative;
+		left:44%;
+		background-image:url(taratitle.jpg);
+		background-size:contain;
+		background-repeat:no-repeat;
+		height:200px;
+		width:200px;
+	}
+
+
+	.taratext{
+		position:absolute;
+		opacity:0%;
+		padding-top:200px;
+		font-size:30px;
+		font-family:"impact", fantasy;
+	}
+	
+</style>
+</head>
+<body>
+<div id = "tara">
+	<div class = "taratext" id = "tara1">#1: BBQ Dad Tara</div>
+	<div class = "taratext" id = "tara2">#2: Serious Soccer Tara</div>
+	<div class = "taratext" id = "tara3">#3: Hoco-Ready Tara</div>
+	<div class = "taratext" id = "tara4">#4: School-Spirited Tara</div>
+	<div class = "taratext" id = "tara5">#5: ??? Tara</div>
+	<div class = "taratext" id = "tara6">#6: Snap Tara</div>
+	<div class = "taratext" id = "tara7">#7: Blinded Tara</div>
+	<div class = "taratext" id = "tara8">#8: Adam Sandler Tara</div>
+	<div class = "taratext" id = "tara9">#9: Wednesday Tara</div>
+	<div class = "taratext" id = "tara10">#10: Basketball Tara</div>
+
+</div>
+<div id = "taratitle">Tara Kamshad: #10's Top Ten
+<div id = "taratitlephoto"></div>
+</div>
+<script type="text/javascript">
+var clickCount = 0
+
+document.addEventListener("click", function makeDiv(){
+console.log(event.clientX,event.clientY);
+tara1.style.opacity = "0%"
+tara2.style.opacity = "0%"
+tara3.style.opacity = "0%"
+tara4.style.opacity = "0%"
+tara5.style.opacity = "0%"
+tara6.style.opacity = "0%"
+tara7.style.opacity = "0%"
+tara8.style.opacity = "0%"
+tara9.style.opacity = "0%"
+tara10.style.opacity = "0%"
+
+if (clickCount == 10)
+	clickCount = 0
+clickCount = clickCount+1
+console.log(clickCount)
+tara.style.left = event.clientX + "px";
+tara.style.top = event.clientY + "px"
+
+if (clickCount == 1)
+	tara.style.background = "url(tara1.jpg)"
+if (clickCount ==1)
+	tara1.style.opacity = "100%";
+if (clickCount == 2)
+	tara2.style.opacity = "100%"
+if (clickCount == 2)
+	tara.style.background = "url(tara2.jpg)";
+if (clickCount == 3)
+	tara3.style.opacity = "100%"
+if (clickCount == 3)
+	tara.style.background = "url(tara3.jpg)"
+if (clickCount == 4)
+	tara4.style.opacity = "100%"
+if (clickCount == 4)
+	tara.style.background = "url(tara4.jpg)"
+if (clickCount == 5)
+	tara5.style.opacity = "100%"
+if (clickCount == 5)
+	tara.style.background = "url(tara5.jpg)"
+if (clickCount == 6)
+	tara6.style.opacity = "100%"
+if (clickCount == 6)
+	tara.style.background = "url(tara6.jpg)"
+if (clickCount == 7)
+	tara7.style.opacity = "100%"
+if (clickCount == 7)
+	tara.style.background = "url(tara7.jpg)"
+if (clickCount == 8)
+	tara8.style.opacity = "100%"
+if (clickCount == 8)
+	tara.style.background = "url(tara8.jpg)"
+if (clickCount == 9)
+	tara9.style.opacity = "100%"
+if (clickCount == 9)
+	tara.style.background = "url(tara9.jpg)"
+if (clickCount == 10)
+	tara10.style.opacity = "100%"
+if (clickCount == 10)
+	tara.style.background = "url(tara10.jpg)"
+
+
+tara.style.backgroundSize = "cover"
+tara.style.backgroundRepeat = "no-repeat"
+
+
+})
+</script>
+
+</body>
+</html>
