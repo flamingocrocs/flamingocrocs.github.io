@@ -52,15 +52,26 @@
 			display:block;
 		}
 
-		#project1{
+		.projects{
 			width:200px;
 			height:200px;
 			position:relative;
 			left:50px;
-			background-image: url(taratitle.jpg);
 			background-size:cover;
 			background-repeat:no-repeat;
+			display:inline-block;
+			margin:20px;
 		}
+
+		#project1{
+			background-image:url(taratitle.jpg);
+		}
+
+		#project2{
+			background-image:url(ghost.jpg);
+			background-position:center;
+		}
+
 
 		.projectstext{
 			position:relative;
@@ -68,6 +79,7 @@
 			font-family:"Dosis";
 			color:white;
 			font-size:15px;
+			text-align:center;
 		}
 
 	</style>
@@ -80,9 +92,15 @@
 	</div>
 	<div id = "projectstitle"><h1>projects</h1>
 	</div>
-	<div id = "project1">
-		<div class = "projectstext" id = "project1Text"><a href="taratopten.html">Project #1: Tara Top Ten</a></div>
+	<div class = "projects" id = "project1">
+		<div class = "projectstext" id = "project1Text">
+			<a href="taratopten.html">Project #1: Tara Top Ten</a></div>
 	</div>
+	<div class = "projects" id = "project2">
+		<div class = "projectstext" id = "project2Text">
+			<a href="stamp.html">Project #2: Ghost Game</a></div>
+	</div>
+	
 </div>
 
 <script type="text/javascript">
