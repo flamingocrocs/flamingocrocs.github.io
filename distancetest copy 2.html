@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+	#div{
+		width:100px;
+		height:100px;
+		border-radius:50px;
+		background-color:black;
+		position:absolute;
+	}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id = "div"></div>
+
+<script type="text/javascript">
+	
+let divPosX = 32;
+let divPosY = 32;
+let mousePosX = 0;
+let mousePosY = 0;
+let frameCount = 0
+const divSpeed = 5
+
+
+
+let div = document.getElementById("div")
+
+function onMouseMove(event){
+	mousePosX = event.clientX;
+	mousePosY = event.clientY;
+}
+
+
+function run(){
+	const diffX = divPosX - mousePosX;
+	const diffY = divPosY - mousePosY;
+	console.log("diffX, diffY: ", diffX, diffY)
+
+	const distance = Math.sqrt(diffX**2 + diffY**2)
+
+	// direction = diffY / distance > 0.5 ? "N" : "";
+	// direction += diffY / distance < -0.5 ? "S" : "";
+	// direction += diffX / distance > 0.5 ? "W" : "";
+	// direction += diffX / distance < -0.5 ? "E" : "";
+
+	divPosX -= Math.round((diffX/distance) * divSpeed);
+	divPosY -= Math.round((diffY/distance) * divSpeed);
+
+
+
+	console.log("Mouse: ", mousePosX, ", ", mousePosY)
+	console.log("Div: ", divPosX, ", ", divPosY)
+
+	div.style.left = `${divPosX}px`;
+	div.style.top = `${divPosY}px`;
+}
+run()
+
+document.addEventListener('mousemove', onMouseMove);
+
+
+</script>
+
+</body>
+</html>

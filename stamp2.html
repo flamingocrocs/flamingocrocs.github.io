@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body{
+	background-color:pink;
+}
+.mocha{
+		width:100px;
+		height:100px;
+		border-radius:50px;
+		background-size:cover;
+		background-repeat: no-repeat;
+		background-position:center;
+		border:1px solid black;
+		display:inline-block;
+		background-image:url(https://i.pinimg.com/originals/a7/ae/94/a7ae94274d1bc120b1a59382ef5ac66b.gif);
+	}
+
+.milk{
+		width:100px;
+		height:100px;
+		border-radius:50px;
+		background-size:cover;
+		background-repeat: no-repeat;
+		background-position:center;
+		border:1px solid black;
+		display:inline-block;
+		background-image:url(https://i.pinimg.com/originals/96/91/0a/96910a7cedeff19c958ac2a78286bd6f.gif);
+	
+	}
+
+#score{
+	height:100px;
+	width:500px;
+	background-color:#6dc1b3;
+	position:absolute;
+	opacity:0%;
+	font-family:"impact", fantasy;
+	font-size:30px;
+	text-align:center;
+}
+
+#title{
+	font-family:"impact", fantasy;
+	text-align:center;
+	font-size:40px;
+	padding-bottom:30px;
+}
+
+#instructions{
+	font-size:30px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id = "title">Milk and Mocha Counter
+<div id = "instructions">Click to stop the counter and see how many Milks and how many Mochas you got!</div>
+</div>
+<div id = "score"></div>
+
+<script type="text/javascript">
+
+let milkCounter = 0
+let mochaCounter = 0
+var stop = "no"
+
+document.body.addEventListener("click", function(){
+	console.log("clicked")
+	stop = "yes"
+	console.log(stop)
+	var scoreDiv = document.getElementById("score")
+	scoreDiv.style.top = event.clientY + "px"
+	scoreDiv.style.left = event.clientX + "px"
+	scoreDiv.style.opacity = "100%"
+	scoreDiv.innerHTML += ("Congratulations! You got "+milkCounter+" Milks and "+mochaCounter+" Mochas!")
+
+})
+
+function makeDivs(){
+if(stop == "no"){
+	let number = Math.floor(Math.random()*10);
+	console.log(number)
+	if (number <=4 ){
+		mochaCounter = mochaCounter + 1
+		console.log("MC:", mochaCounter)
+		let mocha = document.createElement(
+		"mocha");
+		mocha.classList.add("mocha");
+		document.body.appendChild(mocha);
+	}
+
+	if (number >=4 ){
+		milkCounter = milkCounter + 1
+		console.log("MK:", milkCounter)
+		let milk = document.createElement(
+		"milk");
+		milk.classList.add("milk");
+		document.body.appendChild(milk);
+		}
+	}
+}
+
+setInterval(makeDivs, 100)
+
+</script>
+
+</body>
+</html>
