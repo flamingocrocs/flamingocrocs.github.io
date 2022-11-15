@@ -119,13 +119,13 @@ document.addEventListener('mousemove', onMouseMove);
 var countClicked = document.getElementsByClassName("clicked")
 var clickedLength = countClicked.length
 
-
 	console.log(divs);
 	let divList = Array.from(divs)
 	console.log(divList)
+
 	divList.forEach(
 		function clickDivs(input){
-		input.addEventListener("click", function (){
+		input.addEventListener("click", function onClick(){
 		console.log("div clicked")
 		input.classList.add("clicked");
 		input.classList.contains("clicked")
@@ -133,7 +133,7 @@ var clickedLength = countClicked.length
 		var clickedLength = countClicked.length
 		console.log("clicked:", countClicked.length)
 		console.log("clicked length:", clickedLength)
-		
+
 		if (clickedLength == 29){
 		console.log("all divs clicked")
 		result = "won"
@@ -144,6 +144,7 @@ var clickedLength = countClicked.length
 		}
 		})
 	})
+
 
 ghost.addEventListener("transitionend", function endGame(){
 	console.log("transition ended")
