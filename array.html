@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id = "square"></div>
+
+<script type="text/javascript">
+
+var counter = -1;
+
+	var breakfast = ["pancakes", "waffles", "coffee", "bacon", "cereal", "turkey bacon", "french toast"]
+
+	console.log(breakfast[2])
+
+	document.addEventListener("click", function(){
+		var random = Math.round(Math.random()*6)
+		square.innerText = breakfast[random]
+	})
+
+</script>
+
+</body>
+</html>

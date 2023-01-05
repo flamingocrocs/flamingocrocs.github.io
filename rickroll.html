@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.rick{
+			height:100px;
+			width:100px;
+			background-image: url(https://i.pinimg.com/originals/b7/fb/80/b7fb80122cf46d0e584f3a0768aef282.gif);
+			background-size:cover;
+			background-position:center;
+			background-repeat:no-repeat;
+/*			position:absolute;
+*/			display:inline-block;
+		}
+
+		#clickhere{
+			width:100%;
+			height:200px;
+			text-align:center;
+			font-size:40px;
+			font-family:"impact", fantasy;
+		}
+		
+
+	</style>
+</head>
+
+<body>
+	<div id = "clickhere">Click the screen to play a song!</div>
+
+
+<script type="text/javascript">
+	let clickCount = 0
+	let rickHeight = 100
+	let rickWidth = 100
+	var div = document.getElementById("clickhere")
+	var song = new Audio("giveyouup.mp3")
+
+
+	function makeRicks(){
+	let rick = document.createElement("rick");
+		rick.classList.add("rick");		
+		document.body.appendChild(rick);
+	}
+
+
+	document.addEventListener("click", function(){
+		song.play()
+		setInterval(makeRicks, 10)
+	})
+	
+
+
+
+	
+
+
+		// if(clickCount == 1){
+		// 	song.play()
+		// 	div.innerHTML = "Click again to make the message disappear."
+
+		// }
+		// if(clickCount%2 == 0){
+		// 	console.log("click count is even")
+		// 	div.innerHTML = "Click the screen to reveal a message!"
+		// }
+
+		// if(clickCount%2 != 0 && clickCount != 1){
+		// 	console.log("click count is odd")
+		// 	div.innerHTML = "Click again to make the message disappear."
+		// }
+	// })
+
+</script>
+
+</body>
+</html>

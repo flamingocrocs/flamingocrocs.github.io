@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		#tree{
+			height:300px;
+			width:300px;
+			background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHmeHXOBelsnmAJG7yiAF-GMiN_tgiD0KG6TCRRVkX&s);
+			background-repeat:no-repeat;
+			background-size:contain;
+			position:relative;
+			left:40%;
+
+		}
+
+		.buttons{
+			width:100px;
+			height:100px;
+			background-image:url(redbutton.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			background-position:center;
+			border-color:white;
+			border-style:solid;
+			border-width:25px;
+			display:inline-block;
+			position:relative;
+			left:26.5%;
+		}
+
+		#buttontext{
+			position:absolute;
+			padding-top:200px;
+
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div id = "tree"></div>
+	<div id = "button 1" class = "buttons">
+		<div id = "buttonText1" class = "buttonText">White No Twinkle</div>
+	</div>
+	<div id = "button 2" class = "buttons">
+		<div id = "buttonText2" class = "buttonText">White Twinkle</div>
+	</div>
+	<div id = "button 3" class = "buttons"></div>
+	<div id = "button 4" class = "buttons"></div>
+	
+
+
+
+
+<script type="text/javascript">
+
+let tree = document.getElementById("tree")
+let buttons = document.getElementsByClassName("buttons")
+let button1 = document.getElementById("button 1")
+let button2 = document.getElementById("button 2")
+let button3 = document.getElementById("button 3")
+let button4 = document.getElementById("button 4")
+let buttonList = Array.from(buttons)
+console.log(buttonList)
+
+buttonList.forEach(
+	function(input){
+		input.addEventListener("click", function(){
+			console.log("button clicked")
+			button1.style.backgroundImage = "url(redbutton.jpg)"
+			button2.style.backgroundImage = "url(redbutton.jpg)"
+			button3.style.backgroundImage = "url(redbutton.jpg)"
+			button4.style.backgroundImage = "url(redbutton.jpg)"
+			input.style.backgroundImage = "url(greenbutton.jpg)"
+
+			tree.style.backgroundImage = 
+		})
+	}
+
+	)
+
+// button1.addEventListener("click", function(){
+// 	console.log("button 1 clicked")
+// 	tree.style.background = "url(https://i.pinimg.com/736x/af/93/f2/af93f262424dd74265993be02169260d.jpg)"
+// 	button1.style.backgroundColor = "green"
+// })
+
+// button2.addEventListener("click", function(){
+// 	console.log("button 2 clicked")
+// 	tree.style.background = "url(https://i.pinimg.com/736x/af/93/f2/af93f262424dd74265993be02169260d.jpg)"
+// 	button2.style.backgroundColor = "green"
+// 	button1.style.backgroundColor = "red"
+// })
+
+
+</script>
+
+</body>
+</html>
