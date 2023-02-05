@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<style type="text/css">
+		.div{
+			width:100px;
+			height:100px;
+			background-repeat: no-repeat;
+			background-size:cover;
+			margin:3px;
+			display:inline-block;
+		}
+		
+	</style>
+
+</head>
+
+<body>
+
+	<script type="text/javascript">
+		const backgrounds = ["tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg"]
+	
+	let counter = 0
+
+	function makeDiv(){
+		let background = backgrounds[counter]
+		let backgroundUrl = ("url("+background+")")
+		console.log(backgroundUrl)
+
+		let div = document.createElement("div");
+		div.classList.add("div");		
+		document.body.appendChild(div);
+		div.style.backgroundImage = backgroundUrl
+		counter = counter+1
+		console.log(counter)
+	}
+
+	
+	while (counter<5){
+		makeDiv()
+	}
+	
+
+
+	</script>
+
+</body>
+</html>

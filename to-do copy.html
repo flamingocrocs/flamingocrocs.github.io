@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+	body{
+		margin:0px;
+	}
+
+	#box{
+		height:100%;
+		width:100%;
+		background-color:#f2f2f2;
+		position:fixed;
+	}
+
+	#inputDiv{
+		height:100px;
+		width:600px;
+		margin:auto;		
+	}
+
+	#list{
+		width:900px;
+		margin:auto;
+	}
+
+	h1{
+		font-family: 'Open Sans', sans-serif;
+		font-size:50px;
+		font-weight:800;
+		text-transform: uppercase;
+		color:white;
+		position:relative;
+		text-align:center;
+	}
+
+
+	#enter{
+		width:20px;
+		height:20px;
+		/*background-image:url(plus.jpg);*/
+		background-color:red;
+		position:relative;
+		display:inline-block;
+	}
+
+
+	input{
+		border-radius:5px;
+		width:500px;
+		padding:5px;
+		border:none;
+		margin:auto;
+	}
+
+
+	li{
+		list-style: none;
+		padding:10px;
+		color:black;
+		border:2px solid #c0e6eb;
+		background:#dbf5ff;
+		margin-bottom:10px;
+		border-radius:5px;
+		transition:ease;
+		transition-duration: 0.5s
+	}
+
+	li:hover{
+		background:#c0e6eb;
+	}
+
+	li > button {
+	font-weight: normal;
+	background: none;
+	border: none;
+	float: right;
+	color: #025f70;
+	font-weight: 800;
+}
+
+	.done{
+		background:#dbffee !important;
+		border:2px solid #c5e6d6;
+	}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+<div id = "box">
+
+<h1>TO DO</h1>
+
+
+<div id = "inputDiv">
+<input type="text" id = "userInput" placeholder="Add a new item...">
+<div id = "enter"></div>
+</div>
+
+
+<div id = "list">
+<ul></ul>
+</div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+	var input = document.getElementById("userInput")
+	var enter = document.getElementById("enter")
+	var ul = document.querySelector("ul")
+	var item = document.getElementsByTagName("li")
+
+	function inputLength(){
+		return input.value.length;
+		console.log(inputLength())
+	}
+	
+	function createListElement(){
+		var li = document.createElement("li")
+		li.appendChild(document.createTextNode(input.value));
+		ul.appendChild(li)
+		input.value = "";
+
+		var xButton = document.createElement("button");
+		xButton.appendChild(document.createTextNode("X"));
+		li.appendChild(xButton);
+
+		xButton.addEventListener("click", deleteListItem);
+
+		function deleteListItem(){
+			console.log("x clicked")
+			li.parentNode.removeChild(li)
+		}
+
+		function markComplete(){
+			li.classList.toggle("done");
+		}
+
+		li.addEventListener("click", markComplete)
+	}
+
+	function buttonAdd(){
+		if (inputLength()>0){
+			createListElement()
+		}
+	}
+	function keyAdd(event){
+		if(inputLength()>0 && event.which === 13){createListElement()
+		}
+	}
+	
+	enter.addEventListener("click", buttonAdd)
+	input.addEventListener("keypress", keyAdd);
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+		
+		body{
+			overflow:hidden;
+		}
+
+		.div{
+			width:150px;
+			height:150px;
+			background-repeat: no-repeat;
+			background-size:cover;
+			margin:3px;
+			display:inline-block;
+
+		}
+
+		#box{
+			width:100%;
+			height:100%;
+			position:fixed;
+			overflow:hidden;
+		}
+
+		#heart{
+			width:300px;
+			height:300px;
+			background-image:url(https://i.pinimg.com/originals/fd/86/93/fd8693b2599cd315cb782775c0654ec7.gif);
+			background-repeat:none;
+			background-size:cover;
+			position:absolute;
+			top:0; left:0; right:0; bottom:0;
+			margin:auto;
+		}
+
+		#minion{
+			width:300px;
+			height:300px;
+			position:absolute;
+			background-image:url(https://i.pinimg.com/originals/32/13/c2/3213c24c3894cdc68da70b29c887989f.gif);
+			background-repeat:no-repeat;
+			background-size:contain;
+			top:0; left:0; right:0; bottom:0;
+			margin:auto;
+			text-align:center;
+			opacity:0%;
+		}
+
+		#text{
+			background-image:url(cutietext.jpg);
+			height:200px;
+			width:700px;
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:relative;
+			right:170px;
+			bottom:100px;
+			
+		}
+
+
+	</style>
+
+</head>
+
+<body>
+	<div id = "box">
+		<div id = "minion">
+			<div id = "text"></div>
+</div>
+	<div id = "heart"></div>
+
+
+	</div>
+
+
+	<script type="text/javascript">
+			const backgrounds = ["cutie0.jpg", "cutie1.jpg", "cutie2.jpg", "cutie3.jpg", "cutie4.jpg", "cutie5.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg", "tara6.jpg", "tara1.jpg", "tara2.jpg", "tara3.jpg", "tara4.jpg"]
+	
+	let counter = 0
+	let heart = document.getElementById("heart")
+
+	function makeDiv(){
+		let background = backgrounds[counter]
+		let backgroundUrl = ("url("+background+")")
+		console.log(backgroundUrl)
+
+		var div = document.createElement("div");
+		div.classList.add("div");
+		document.body.appendChild(div);
+
+		div.style.backgroundImage = backgroundUrl
+
+		counter = counter+1
+		console.log(counter)
+		}
+
+	while(counter<46){
+			makeDiv()
+		}
+
+	const divs = Array.from(document.getElementsByClassName("div"));
+	let minion = document.getElementById("minion")
+	let box = document.getElementById("box")
+
+
+
+	heart.addEventListener("click", function(){
+		  heart.style.transform = "scale(30)";
+		  heart.style.transition = "transform 1.0s ease";
+		  heart.addEventListener("transitionend", function(){
+		  	console.log("animation ended")
+		  	divs.forEach( function(element){element.style.opacity = "0";})
+		  	heart.style.opacity = "0%"
+		  	minion.style.opacity = "100%"
+		  	box.style.backgroundColor = "#faad9c"
+
+		  })
+
+	})
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>

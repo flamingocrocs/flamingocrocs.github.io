@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.square{
+			height:90px;
+			width:90px;
+/*			border-radius:45px;
+*/			background-color:black;
+			display:inline-block;
+			margin:5px;
+			transition:8s;
+		}
+
+		.square:hover{
+			transform:rotate(360deg);
+			transition:0.5s;
+		}
+
+		.special{
+			transition-duration:2s;
+		}
+
+		.red:hover{
+			background-color:#f94144 !important
+		}
+
+		.orange:hover{
+			background-color:#f3722c !important
+		}
+
+		.orange2:hover{
+			background-color:#f8961e !important
+		}
+
+		.yellow:hover{
+			background-color:#f9c74f !important
+		}
+
+		.green:hover{
+			background-color:#90be6d !important
+		}
+		
+		.green2:hover{
+			background-color:#43aa8b !important
+		}
+
+		.blue:hover{
+			background-color:#577590 !important
+		}
+
+		.blue2:hover{
+			background-color:#577590 !important
+		}
+4vgnm
+		.blue3:hover{
+			background-color:#277da1 !important
+		}
+
+
+	</style>
+	
+</head>
+
+<body>
+
+
+<script type="text/javascript">
+	
+	var i = 1
+
+	function makeSquare(x){
+		var square = document.createElement("div");
+		document.body.appendChild(square)
+		square.classList.add("square")
+
+		var random = Math.floor(Math.random()*(100-1+1)+1)
+		console.log(random)
+
+		if(random <=15){
+			square.classList.add("special")
+			square.classList.add("red")
+		}
+
+		if (random >= 10 && random <= 15){
+			square.classList.add("special")
+			square.classList.add("orange")
+		}
+
+		if (random >= 20 && random <= 25){
+			square.classList.add("special")
+			square.classList.add("orange2")
+		}
+
+		if (random >= 30 && random <= 35){
+			square.classList.add("special")
+			square.classList.add("yellow")
+		}
+
+		if (random >= 40 && random <= 45){
+			square.classList.add("special")
+			square.classList.add("green")
+		}
+
+		if (random >= 50 && random <= 55){
+			square.classList.add("special")
+			square.classList.add("green2")
+		}
+
+		if (random >= 60 && random <= 65){
+			square.classList.add("special")
+			square.classList.add("blue")
+		}
+
+		if (random >= 70 && random <= 75){
+			square.classList.add("special")
+			square.classList.add("blue2")
+		}
+
+		if (random >= 80 && random <= 85){
+			square.classList.add("special")
+			square.classList.add("blue3")
+		}
+
+
+	}
+
+	for (var i = 1; i < 99; i = i+1) {makeSquare(i)
+	}
+</script>
+
+</body>
+
+</html>
