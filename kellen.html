@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+
+		body{
+			overflow:hidden;
+			margin:0px;
+		}
+
+
+		p{
+			text-align:center;
+			position:relative;
+			top:30%;
+		}
+
+		.notes{
+			position:absolute;
+			left:500px;
+			bottom:100px;
+			width:400px;
+			height:400px;
+			background-image: url(sticky.jpg);
+			background-size:contain;
+			background-repeat: no-repeat;
+			text-align:center;
+			vertical-align:center;
+			cursor:move;
+/*			font-family:
+*/			font-size:20px;
+		}
+
+		#box{
+			width:100%;
+			height:100%;
+			margin:none;
+			background-image:url(board.jpg);
+			background-size:cover;
+			position:fixed;
+		}
+
+
+		#heart{
+			width:150px;
+			height:150px;
+			position:fixed;
+			left:50px;
+			top:50px;
+			background-image:url(heartnote.jpg);
+			background-size:contain;
+		}
+
+		#gif{
+			width:500px;
+			height:300px;
+			position:fixed;
+			background-image:url(https://i.pinimg.com/originals/01/1e/30/011e30e2a059a8303d41aa88d88ee34b.gif);
+			opacity:0%;
+			top:0; bottom:0; left:0; right:0;
+			margin:auto;
+			text-align:center;
+		}
+
+		#text{
+			position:relative;
+			bottom:100px;
+			font-size:40px;
+			font-family:impact;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div id = "box">
+		<div id = "gif">
+			<div id = "text">HAPPY VALENTINE'S DAY!</div>
+		</div>
+		<div id = "kellen"></div>
+
+		<div id = "note1" class = "notes">
+			<p>ily!</p>
+			<p>(click the heart)</p>
+		</div>
+
+		<div id = "note2" class = "notes">
+			<p>and a fashion</p>
+			<p>icon!</p>
+		</div>
+
+		<div id = "note3" class = "notes">
+			<p>you're an artist <3</p>
+		</div>
+
+		<div id = "note4" class = "notes">
+			<p>happy valentine's</p>
+			<p>day!</p>
+		</div>
+
+		<div id = "note5" class = "notes">
+			<p>hey kellen :D</p>
+			<p>(drag this aside)</p>
+		</div>
+		<div id = "heart"></div>
+	</div>
+
+
+
+	
+
+
+
+
+
+
+	<script type="text/javascript">
+		let x = 0;
+		let y = 0;
+
+		const note1 = document.getElementById("note1")
+		const note2 = document.getElementById("note2")
+		const note3 = document.getElementById("note3")
+		const note4 = document.getElementById("note4")
+		const note5 = document.getElementById("note5")
+
+
+
+
+
+		const mouseDownHandler1 = function(e){
+			x = e.clientX;
+			y = e.clientY;
+
+			document.addEventListener("mousemove", mouseMoveHandler1)
+			document.addEventListener("mouseup", mouseUpHandler1)
+			// note1.style.backgroundImage = "url(note.jpg)"
+		}
+
+		const mouseMoveHandler1 = function(e){
+			const dx = e.clientX - x;
+			const dy = e.clientY - y;
+
+			note1.style.top = (note1.offsetTop+dy) + "px"
+			note1.style.left = (note1.offsetLeft + dx) + "px"
+
+			x = e.clientX;
+			y = e.clientY;
+		}
+
+		const mouseUpHandler1 = function(){
+			document.removeEventListener("mousemove", mouseMoveHandler1)
+			document.removeEventListener("mouseup", mouseUpHandler1)
+
+			note1.style.transform = "scale(0.75)";
+
+		}
+
+		note1.addEventListener("mousedown", mouseDownHandler1)
+
+
+
+		const mouseDownHandler2 = function(e){
+			x = e.clientX;
+			y = e.clientY;
+
+			document.addEventListener("mousemove", mouseMoveHandler2)
+			document.addEventListener("mouseup", mouseUpHandler2)
+
+		}
+
+		const mouseMoveHandler2 = function(e){
+			const dx = e.clientX - x;
+			const dy = e.clientY - y;
+
+			note2.style.top = (note2.offsetTop+dy) + "px"
+			note2.style.left = (note2.offsetLeft + dx) + "px"
+
+			x = e.clientX;
+			y = e.clientY;
+		}
+
+		const mouseUpHandler2 = function(){
+			document.removeEventListener("mousemove", mouseMoveHandler2)
+			document.removeEventListener("mouseup", mouseUpHandler2)
+
+			note2.style.transform = "scale(0.75)";
+
+
+		}
+
+		note2.addEventListener("mousedown", mouseDownHandler2)
+
+
+
+		const mouseDownHandler3 = function(e){
+			x = e.clientX;
+			y = e.clientY;
+
+			document.addEventListener("mousemove", mouseMoveHandler3)
+			document.addEventListener("mouseup", mouseUpHandler3)
+
+		}
+
+		const mouseMoveHandler3 = function(e){
+			const dx = e.clientX - x;
+			const dy = e.clientY - y;
+
+			note3.style.top = (note3.offsetTop+dy) + "px"
+			note3.style.left = (note3.offsetLeft + dx) + "px"
+
+			x = e.clientX;
+			y = e.clientY;
+		}
+
+		const mouseUpHandler3 = function(){
+			document.removeEventListener("mousemove", mouseMoveHandler3)
+			document.removeEventListener("mouseup", mouseUpHandler3)
+
+			note3.style.transform = "scale(0.75)";
+
+
+		}
+
+		note3.addEventListener("mousedown", mouseDownHandler3)
+
+
+
+		const mouseDownHandler4 = function(e){
+			x = e.clientX;
+			y = e.clientY;
+
+			document.addEventListener("mousemove", mouseMoveHandler4)
+			document.addEventListener("mouseup", mouseUpHandler4)
+
+
+		}
+
+		const mouseMoveHandler4 = function(e){
+			const dx = e.clientX - x;
+			const dy = e.clientY - y;
+
+			note4.style.top = (note4.offsetTop+dy) + "px"
+			note4.style.left = (note4.offsetLeft + dx) + "px"
+
+			x = e.clientX;
+			y = e.clientY;
+		}
+
+		const mouseUpHandler4 = function(){
+			document.removeEventListener("mousemove", mouseMoveHandler4)
+			document.removeEventListener("mouseup", mouseUpHandler4)
+
+			note4.style.transform = "scale(0.75)";
+
+		}
+
+		note4.addEventListener("mousedown", mouseDownHandler4)
+
+
+
+		const mouseDownHandler5 = function(e){
+			x = e.clientX;
+			y = e.clientY;
+
+			document.addEventListener("mousemove", mouseMoveHandler5)
+			document.addEventListener("mouseup", mouseUpHandler5)
+
+
+		}
+
+		const mouseMoveHandler5 = function(e){
+			const dx = e.clientX - x;
+			const dy = e.clientY - y;
+
+			note5.style.top = (note5.offsetTop+dy) + "px"
+			note5.style.left = (note5.offsetLeft + dx) + "px"
+
+			x = e.clientX;
+			y = e.clientY;
+		}
+
+		const mouseUpHandler5 = function(){
+			document.removeEventListener("mousemove", mouseMoveHandler5)
+			document.removeEventListener("mouseup", mouseUpHandler5)
+
+			note5.style.transform = "scale(0.75)";
+
+
+		}
+
+		note5.addEventListener("mousedown", mouseDownHandler5)
+
+		let heart = document.getElementById("heart")
+		let gif = document.getElementById("gif")
+		let box = document.getElementById("box")
+
+		const notes = Array.from(document.getElementsByClassName("notes"));
+
+		heart.addEventListener("click", function(){
+			console.log("heart clicked")
+			heart.style.transform = "scale(45)";
+			  heart.style.transition = "transform 1.0s ease";
+			  heart.addEventListener("transitionend", function(){
+		  	console.log("animation ended")
+		  	notes.forEach(function(element){element.style.opacity = "0";})
+		  	gif.style.opacity = "100%"
+		  	heart.style.opacity = "0%"
+		  	box.style.backgroundImage = "none"
+		  	box.style.backgroundColor = "#fed2d2"
+
+		  })
+
+		})
+		
+
+	</script>
+
+</body>
+</html>

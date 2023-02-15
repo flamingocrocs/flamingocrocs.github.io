@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.notes{
+			width:400px;
+			height:400px;
+			background-image: url(note.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			top:0; bottom:0; right:0; left:0;
+			margin:auto;
+			text-align:center;
+			opacity:100%;
+/*			transition:3s;
+*/		}
+
+		.notesmove{
+			width:200px;
+			height:200px;
+			background-image: url(note.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			text-align:center;
+		}
+
+		.notesText{
+			padding-top:150px;
+		}
+
+		.notesTextMoved{
+			padding-bottom:75px !important;
+		}
+
+		.visible{
+			opacity:100% !important;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id = "note1" class = "notes">
+		<div id = note1text class = notesText>last one...</div>
+	</div>
+	<div id = "note2" class = "notes">
+		<div id = note2text class = notesText>note 2</div>
+	</div>	
+	<div id = "note3" class = "notes">
+		<div id = note3text class = notesText>test 3</div>
+	</div>
+	<div id = "note4" class = "notes">
+		<div id = note4text class = notesText>hola</div>
+	</div>
+	<div id = "note5" class = "notes" class = "visible">
+		<div id = note5text class = notesText>hey kellen :D</div>
+	</div>
+	
+	
+
+<script type="text/javascript">
+	const notes = Array.from(document.getElementsByClassName("notes"))
+	let left = 0
+	let counter = 0
+
+	notes.forEach(
+		function(input){
+			input.addEventListener("click", function(){
+				counter = counter + 1
+				console.log(counter)
+				console.log("div clicked")
+				input.classList.add("notesmove")
+				input.classList.remove("notesText")
+				input.classList.add("notesTextMoved")
+				input.style.margin = "0px"
+				input.style.top = "0px"
+				if(counter == 1){
+					input.style.left = "0px"
+				}
+				else{
+					left = left+200
+					console.log(left)
+					input.style.left = (left+"px")}
+			})
+			})
+		
+		
+
+	
+
+</script>
+
+</body>
+</html>

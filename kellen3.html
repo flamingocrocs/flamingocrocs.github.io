@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.notes{
+			width:400px;
+			height:400px;
+			background-image: url(note.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id = "note1" class = "notes"></div>
+	<div id = "note2" class = "notes"></div>
+	<div id = "note3" class = "notes"></div>
+	<div id = "note4" class = "notes">note 4</div>
+	<div id = "note5" class = "notes">note 5</div>
+
+
+
+	<script type="text/javascript">
+		var note5 = document.getElementById("note5")
+		var note4 = document.getElementById("note4")
+		var note3 = document.getElementById("note3")
+		var note2 = document.getElementById("note2")
+		var note1 = document.getElementById("note1")
+
+		dragElement(document.getElementById("note5"))
+		// dragElement(document.getElementById("note4"))
+		// dragMouseDow3(document.getElementById("note3"))
+		// dragMouseDow2(document.getElementById("note2"))
+		// dragMouseDown1(document.getElementById("note1"))
+
+		
+
+	
+		function dragElement(note5){
+			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+			note5.onmousedown = dragMouseDown;
+
+		}	
+
+		function dragMouseDown(e){
+			var e = e || window.event;
+			e.preventDefault();
+			pos3 = e.clientX;
+    		pos4 = e.clientY;
+    		document.onmouseup = closeDragElement;
+    		document.onmousemove = elementDrag;
+		}
+
+		function elementDrag(e){
+			var e = e || window.event;
+			e.preventDefault();
+			pos1 = pos3 - e.clientX;
+			pos2 = pos4 - e.clientY;
+			pos3 = e.clientX;
+			pos4 = e.clientY
+			note5.style.top = (note5.offsetTop - pos2) + "px"
+			note5.style.left = (note5.offsetLeft - pos1) + "px"
+		}
+
+		// function dragMouseDown4(e){
+		// 	var e = e || window.event;
+		// 	e.preventDefault();
+		// 	pos3 = e.clientX;
+  //   		pos4 = e.clientY;
+  //   		document.onmouseup = closeDragElement;
+  //   		document.onmousemove = elementDrag4;
+		// }
+
+		// function elementDrag4(e){
+		// 	var e = e || window.event;
+		// 	e.preventDefault();
+		// 	pos1 = pos3 - e.clientX;
+		// 	pos2 = pos4 - e.clientY;
+		// 	pos3 = e.clientX;
+		// 	pos4 = e.clientY
+		// 	note4.style.top = (note4.offsetTop - pos2) + "px"
+		// 	note4.style.left = (note4.offsetLeft - pos1) + "px"
+		// }
+
+		function closeDragElement(){
+			document.onmouseup = null;
+			document.onmousemove = null;
+		}
+
+	</script>
+
+</body>
+</html>
