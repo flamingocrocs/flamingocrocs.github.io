@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+		body{
+			margin:0px;
+		}
+
+		#box{
+			width:100%;
+			height:100%;
+			position:fixed;
+			background-color:#cce3fc;
+			transition-duration:2s;
+		}
+
+		#mountains{
+			height:575px;
+			width:100%;
+			background-image: url(mountains1.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			bottom:0px;
+			transition-duration:2s;
+		}
+
+		#sun{
+			width:100px;
+			height:100px;
+			border-radius:50px;
+			background-color:white;
+			position:relative;
+			left:50%;
+			top:20%;
+			transition-duration:2s;
+		}
+
+		#moon{
+			width:100px;
+			height:100px;
+			transform:rotate(-45deg);
+			opacity:0%;
+			position:absolute;
+			background-image:url(moon.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			left:10%;
+			top:20%;
+			transition-duration:4s;
+			transition-delay:1.5s;
+		}
+
+		.text{
+			font-family:"Brush Script MT";
+			color:white;
+			font-size:20px;
+			position:absolute;
+			opacity:0%;
+			transition-duration:4s;
+			transition-delay:1.5s;
+		}
+
+		.textDelay{
+			transition-duration:2s !important;
+			transition-delay:0s !important;
+		}
+
+		#h{
+			top: 145px;
+			left: 20px;
+		}
+
+		#a{
+			top: 60px;
+			left: 1300px;
+		}
+
+		#p{
+			top:15px;
+			left:400px;
+		}
+
+		#p2{
+			top:75px;
+			left:1100px;
+		}
+
+		#y{
+			top:90px;
+			left:700px;
+		}
+
+		#b{
+			top:165px;
+			left:600px;
+		}
+
+		#d{
+			top:225px;
+			left:200px;
+		}
+
+		#a2{
+			top:135px;
+			left:1200px;
+		}
+
+		#y2{
+			top:180px;
+			left:850px;
+		}
+
+		#a3{
+			top:210px;
+			left:500px;
+		}
+
+		#v{
+			top:150px;
+			left:1400px;
+		}
+
+		#e{
+			top:140px;
+			left:300px;
+		}
+
+		#r{
+			top:45px;
+			left:900px;
+		}
+
+		#y3{
+			top:30px;
+			left:100px;
+		}
+
+		#exclamation{
+			top:200px;
+			left:1000px;
+		}
+
+
+		.stars{
+			background-image:url(whitestar.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			transition-duration:2s;
+			color:black;
+		}
+
+		.strings{
+			width:2px;
+			background-color:white;
+			position:absolute;
+			transition-duration:1s;
+			align-items:center;
+		}
+
+		.bounce{
+			transition-duration:0.3s !important;
+		}
+
+		.drop{
+			transition-duration:1s !important;
+		}
+		.row1{
+			height:50px;
+			top:-65px;
+			left:5%;
+		}
+
+		.row2{
+			height:70px;
+			top:-80px;
+		}
+
+		.row3{
+			height:90px;
+			top:-110px;
+		}
+
+		.row4{
+			height:120px;
+			top:-145px;
+		}
+
+		.row5{
+			height:150px;
+			top:-180px;
+		}
+
+		.stars1{
+			width:15px;
+			height:15px;
+			left:-7.5px;
+			bottom:-12px;
+		}
+
+		.stars2{
+			width:10px;
+			height:10px;
+			bottom:-8px;
+			left:-5px;
+		}
+
+		.stars3{
+			width:20px;
+			height:20px;
+			bottom:-15px;
+			left:-9px;
+		}
+
+		.stars4{
+			width:25px;
+			height:25px;
+			bottom:-20px;
+			left:-12.5px;
+		}
+
+		.stars5{
+			width:40px;
+			height:40px;
+			bottom:-30px;
+			left:-20px
+		}
+
+		#fork{
+			width:100%;
+			height:100%;
+			z-index:10;
+			background-image:url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/dbfd0428-1996-4c8d-a9fb-6872bfa9d391/d4k7x2d-9d44ac12-5a5f-4f45-9413-e92935dfc995.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2RiZmQwNDI4LTE5OTYtNGM4ZC1hOWZiLTY4NzJiZmE5ZDM5MVwvZDRrN3gyZC05ZDQ0YWMxMi01YTVmLTRmNDUtOTQxMy1lOTI5MzVkZmM5OTUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YtfQWxNxLb1JQV8zwyaDng4uqtVsbbg6cGytNc4EP28);
+			background-size:600px;
+			background-repeat:no-repeat;
+			background-position:center bottom;
+			position:absolute;
+			top:0%;
+			background-color:white;
+			opacity:0%;
+		}
+		
+		#hat{
+			width:300px;
+			height:300px;
+			z-index:11;
+			background-image:url(partyhat.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			left:42.5%;
+			top:5px;
+			opacity:0%;
+		}
+
+		#horn{
+			width:200px;
+			height:200px;
+			z-index:11;
+			background-image:url(partyhorn.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			left:50%;
+			top:40%;
+			opacity:0%;
+		}
+
+		.noTransition{
+			transition-duration:0s;
+		}
+
+	</style>
+</head>
+<body>
+
+<div id = "box">
+	<div id = "sun"></div>
+	<div id = "moon"></div>
+	<div id = "mountains"></div>
+
+	<div id="h" class = "text">h</div>
+	<div id="a" class = "text">a</div>
+	<div id="p" class = "text">p</div>
+	<div id="p2" class = "text">p</div>
+	<div id="y" class = "text">y</div>
+	<div id="b" class = "text">b</div>
+	<div id="d" class = "text">d</div>
+	<div id="a2" class = "text">a</div>
+	<div id="y2" class = "text">y</div>
+	<div id="a3" class = "text">a</div>
+	<div id="v" class = "text">v</div>
+	<div id="e" class = "text">e</div>
+	<div id="r" class = "text">r</div>
+	<div id="y3" class = "text">y</div>
+	<div id = "exclamation" class = "text">!</div>
+	<div id = "fork"></div>
+	<div id = "hat"></div>
+	<div id = "horn"></div>
+</div>
+
+	<script type="text/javascript">
+
+		let mountains = document.getElementById("mountains")
+		let sun = document.getElementById("sun")
+		let moon = document.getElementById("moon")
+		let box = document.getElementById("box")
+		const words = Array.from(document.getElementsByClassName("text"));
+
+
+		let h = document.getElementById("h")
+		let a = document.getElementById("a")
+		let p = document.getElementById("p")
+		let p2 = document.getElementById("p2")
+		let y = document.getElementById("y")
+		let b = document.getElementById("b")
+		let d = document.getElementById("d")
+		let a2 = document.getElementById("a2")
+		let y2 = document.getElementById("y2")
+		let a3 = document.getElementById("a3")
+		let v = document.getElementById("v")
+		let e = document.getElementById("e")
+		let r = document.getElementById("r")
+		let y3 = document.getElementById("y3")
+		let exclamation = document.getElementById("exclamation")
+
+
+
+		let counter = 0
+		let left = 0.75
+
+		function makeDiv(){
+
+			counter = counter+1
+
+			let idSg = "string"+counter
+
+			let idSr = "star"+counter
+
+			var string = document.createElement("div");
+			string.classList.add("strings");
+			document.body.appendChild(string);
+			string.id = idSg
+
+			var star = document.createElement("div");
+			star.classList.add("stars");
+			string.appendChild(star);
+			star.id = idSr
+
+			if(counter==3||counter==6||counter==12||counter==15||counter==18||counter==24||counter==27||counter==30||counter==36||counter==39||counter==42||counter==48||counter==51||counter==54){
+				string.classList.add("row1")
+				star.classList.add("stars1")
+				left = left + 2.2
+			}
+
+			if(counter==5||counter==8||counter==11||counter==17||counter==20||counter==23||counter==29||counter==32||counter==35||counter==41||counter==44||counter==47||counter==53){
+				string.classList.add("row2")
+				star.classList.add("stars2")
+				left = left+1.4
+			}
+
+			if(counter==1||counter==9||counter==13||counter==21||counter==25||counter==33||counter==37||counter==45||counter==49){
+				string.classList.add("row3")
+				star.classList.add("stars3")
+				if(counter==1){
+					console.log(left)
+				}
+				else{
+					left = left+1.3
+				}
+			}
+
+			if(counter==2||counter==10||counter==14||counter==22||counter==26||counter==34||counter==38||counter==46||counter==50){
+				string.classList.add("row4")
+				star.classList.add("stars4")
+				left = left+2.05
+			}
+
+			if(counter==4||counter==7||counter==16||counter==19||counter==28||counter==31||counter==40||counter==43||counter==52||counter==55){
+				string.classList.add("row5")
+				star.classList.add("stars5")
+				left = left+2
+			}
+
+			string.style.left = left+"%"
+
+		}
+
+		while(counter<55){
+			makeDiv()
+		}
+
+		const strings = Array.from(document.getElementsByClassName("strings"))
+
+
+		document.addEventListener("click", function myFunction(){
+			console.log("screen clicked")
+			mountains.style.backgroundImage = "url(mountains2.jpg)"
+			box.style.backgroundColor = "#E4ACC4"
+			sun.style.top = "45%"
+			sun.style.backgroundColor = "#FFE6F3"
+			moon.style.opacity = "100%"
+			words.forEach(function(element){
+				element.style.opacity = "100%"
+			})
+			document.removeEventListener("click", myFunction)
+			sun.addEventListener("transitionend", function(){
+				mountains.style.backgroundImage = "url(mountains3.jpg)"
+				box.style.backgroundColor = "#141424"
+				
+
+				
+
+					document.addEventListener("click", function wordsMove(){
+						console.log("screen clicked wordsMove")
+						words.forEach(function(element){
+							element.classList.add("textDelay")
+							element.style.top = "23%"
+							element.style.fontSize = "30px"
+						})
+					document.removeEventListener("click", wordsMove)
+
+
+
+
+				
+
+						h.style.left = "32%"
+						a.style.left = "34%"
+						p.style.left = "36%"
+						p2.style.left = "38%"
+						y.style.left = "40%"
+						b.style.left = "46%"
+						d.style.left = "48%"
+						a2.style.left = "50%"
+						y2.style.left = "52%"
+						a3.style.left = "58%"
+						v.style.left = "60%"
+						e.style.left = "62%"
+						r.style.left = "64%"
+						y3.style.left = "66%"
+						exclamation.style.left = "67%"
+
+
+				strings.forEach(function(element){
+					element.style.top = "0%"
+					element.addEventListener("transitionend", function bounce(){
+					console.log("bounce listener added")
+					element.classList.add("bounce")
+					let height = element.offsetHeight;
+					let newHeight = (height-30)+"px"
+					element.style.height = newHeight
+					
+					console.log("bounce listener removed")
+					bounceDone = "yes"
+					element.removeEventListener("transitionend", bounce)
+
+				
+				if(bounceDone == "yes"){
+					element.addEventListener("transitionend", function drop(){
+						console.log("drop listener added")
+						element.removeEventListener("transitionend", drop)
+						element.classList.add("drop")
+						let height = element.offsetHeight;
+						let newHeight = (height + 40)+"px"
+						element.style.height = newHeight
+						
+						console.log("drop listener removed")
+					})
+				}
+			})
+			})
+					})
+				})
+			})
+		
+
+
+		const stars = Array.from(document.getElementsByClassName("stars"))
+
+		
+
+		var crowd = new Audio("happybirthday.mp3")
+		var horn = new Audio("partyhorn.mp3")
+		let partyhorn = document.getElementById("horn")
+		let fork = document.getElementById("fork")
+		let hat = document.getElementById("hat")
+		let star14 = document.getElementById("star14")
+		let string28 = document.getElementById("string28")
+		let string29 = document.getElementById("string29")
+		let string31 = document.getElementById("string31")
+
+		strings.forEach(function starTransform(element){
+					element.addEventListener("click", function(){
+						console.log("div clicked")
+						let star = element.firstChild;
+						console.log(star)
+						
+						star.style.transform = "rotate(396deg)"
+						star.style.transition = "transform 1.0s ease"
+
+						if(element.id == "string14"){
+							console.log("true")
+							console.log("div 14 clicked")
+					string28.style.opacity = "0%"
+					string29.style.opacity = "0%"
+					string31.style.opacity = "0%"
+					partyhorn.style.opacity = "100%"
+					fork.style.opacity = "100%"
+					hat.style.opacity = "100%"
+					crowd.play()
+					crowd.addEventListener("ended", function(){
+					horn.play()
+					partyhorn.style.backgroundImage = "url(partyhorn.gif)"
+					horn.addEventListener("ended", function(){
+						partyhorn.style.opacity = "0%"
+						fork.style.opacity = "0%"
+						hat.style.opacity = "0%"
+						string28.classList.add("noTransition")
+						string28.style.opacity = "100%"
+						string29.style.opacity = "100%"
+						string31.style.opacity = "100%"
+				})
+				})
+					}
+		
+						})
+					
+					})
+			
+			
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>

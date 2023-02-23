@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+		body{
+			margin:0px;
+		}
+
+
+		#box{
+			width:100%;
+			height:100%;
+			background-color:black;
+			position:fixed;
+		}
+
+		#reference{
+			width:100%;
+			height:300px;
+			background-image:url(hangingstars.jpg);
+			background-repeat: repeat-x;
+			background-size:contain;
+			opacity:0%;
+		}
+
+
+		#moon{
+			width:100px;
+			height:100px;
+			transform:rotate(-45deg);
+			position:absolute;
+			background-image:url(moon.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			left:10%;
+			top:20%;
+			transition-duration:4s;
+			transition-delay:1.5s;
+		}
+
+		.stars{
+			background-image:url(whitestar.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+		}
+
+		.strings{
+			width:2px;
+			background-color:white;
+			position:absolute;
+			transition-duration:1s;
+			align-items:center;
+		}
+
+		.bounce{
+			transition-duration:0.3s !important;
+		}
+
+		.drop{
+			transition-duration:1s !important;
+		}
+		.row1{
+			height:50px;
+			top:-65px;
+			left:5%;
+		}
+
+		.row2{
+			height:85px;
+			top:-95px;
+		}
+
+		.row3{
+			height:120px;
+			top:-140px;
+		}
+
+		.row4{
+			height:150px;
+			top:-175px;
+		}
+
+		.row5{
+			height:180px;
+			top:-210px;
+		}
+
+		.stars1{
+			width:15px;
+			height:15px;
+			left:-7.5px;
+			bottom:-13px;
+		}
+
+		.stars2{
+			width:10px;
+			height:10px;
+			bottom:-8px;
+			left:-5px;
+		}
+
+		.stars3{
+			width:20px;
+			height:20px;
+			bottom:-19px;
+			left:-9px;
+		}
+
+		.stars4{
+			width:25px;
+			height:25px;
+			bottom:-20px;
+			left:-12.5px;
+		}
+
+		.stars5{
+			width:40px;
+			height:40px;
+			bottom:-30px;
+			left:-20px
+		}
+
+		#string1{
+			height:120px;
+			top:-140px;
+			left:0.75%;
+		}
+
+		#string2{
+			height:180px;
+			top:-210px;
+			left:7%;
+		}
+		
+		#string3{
+			height:50px;
+			top:-65px;
+			left:5%;
+		}
+
+		#string4{
+			height:150px;
+			top:-175px;
+			left:2.8%;
+		}
+
+		#string5{
+			height:85px;
+			top:-95px;
+			left:8.4%;
+		}
+
+		
+
+		#star1{
+			width:20px;
+			height:20px;
+			bottom:-19px;
+			left:-9px;
+		}
+
+		#star2{
+			width:40px;
+			height:40px;
+			left:-20px;
+			bottom:-30px;
+			transform:rotate(36deg);
+		}
+
+		#star3{
+			width:15px;
+			height:15px;
+			left:-7.5px;
+			bottom:-13px;
+		}
+
+		#star4{
+			width:25px;
+			height:25px;
+			bottom:-20px;
+			left:-12.5px;
+		}
+
+		#star5{
+			width:10px;
+			height:10px;
+			bottom:-8px;
+			left:-5px;
+		}
+		
+
+
+	</style>
+</head>
+<body>
+<div id = "box">
+	<div id = "reference"></div>
+	<div id = "moon"></div>
+<!-- 	<div id = "string1" class = "strings">
+		<div id = "star1" class = "stars">1</div>
+	</div>
+	<div id = "string2" class = "strings">
+		<div id = "star2" class = "stars">2</div>
+	</div>
+	<div id = "string3" class = "strings">
+		<div id = "star3" class = "stars">3</div>
+	</div>
+	<div id = "string4" class = "strings">
+		<div id = "star4" class = "stars">4</div>
+	</div>
+	<div id = "string5" class = "strings">
+		<div id = "star5" class = "stars">5</div>
+	</div> -->
+</div>
+
+	<script type="text/javascript">
+		let counter = 0
+		let left = 0.75
+
+		function makeDiv(){
+
+			counter = counter+1
+
+			let idSg = "string"+counter
+
+			let idSr = "star"+counter
+
+			var string = document.createElement("div");
+			string.classList.add("strings");
+			document.body.appendChild(string);
+			string.id = idSg
+
+			var star = document.createElement("div");
+			star.classList.add("stars");
+			string.appendChild(star);
+			star.id = idSr
+			star.innerHTML = counter
+
+			if(counter==3||counter==6||counter==12||counter==15||counter==18||counter==24||counter==27||counter==30||counter==36||counter==39||counter==42||counter==48||counter==51||counter==54){
+				string.classList.add("row1")
+				star.classList.add("stars1")
+				left = left + 2.2
+			}
+
+			if(counter==5||counter==8||counter==11||counter==17||counter==20||counter==23||counter==29||counter==32||counter==35||counter==41||counter==44||counter==47||counter==53){
+				string.classList.add("row2")
+				star.classList.add("stars2")
+				left = left+1.4
+			}
+
+			if(counter==1||counter==9||counter==13||counter==21||counter==25||counter==33||counter==37||counter==45||counter==49){
+				string.classList.add("row3")
+				star.classList.add("stars3")
+				if(counter==1){
+					console.log(left)
+				}
+				else{
+					left = left+1.3
+				}
+			}
+
+			if(counter==2||counter==10||counter==14||counter==22||counter==26||counter==34||counter==38||counter==46||counter==50){
+				string.classList.add("row4")
+				star.classList.add("stars4")
+				left = left+2.05
+			}
+
+			if(counter==4||counter==7||counter==16||counter==19||counter==28||counter==31||counter==40||counter==43||counter==52||counter==55){
+				string.classList.add("row5")
+				star.classList.add("stars5")
+				left = left+2
+			}
+
+			string.style.left = left+"%"
+
+		}
+
+		while(counter<55){
+			makeDiv()
+		}
+
+		console.log(left)
+
+
+		const strings = Array.from(document.getElementsByClassName("strings"));
+		let bounceDone = "no"
+
+		document.addEventListener("click", function(){
+			strings.forEach(function(element){
+				element.style.top = "0%"
+			})
+
+			strings.forEach(function(element){
+				element.addEventListener("transitionend", function bounce(){
+					element.classList.add("bounce")
+					let height = element.offsetHeight;
+					let newHeight = (height-30)+"px"
+					element.style.height = newHeight
+					element.removeEventListener("transitionend", bounce)
+					bounceDone = "yes"
+					console.log(bounceDone)
+				
+				if(bounceDone == "yes"){
+					element.addEventListener("transitionend", function drop(){
+						element.classList.add("drop")
+						let height = element.offsetHeight;
+						console.log("second listener:"+height)
+						let newHeight = (height + 40)+"px"
+						element.style.height = newHeight
+						element.removeEventListener("transitionend", drop)
+					})
+				}
+			})
+			})
+		})
+		
+
+	</script>
+
+</body>
+</html>
