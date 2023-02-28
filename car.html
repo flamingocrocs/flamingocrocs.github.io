@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+		body{
+			margin:0px;
+			height:750px;
+			background-color:black;
+		}
+
+		#box{
+			width:100%;
+			height:100%;
+			position:fixed;
+			background-image:url(highway2.jpg);
+			background-size:cover;
+			background-repeat:repeat-x;
+			z-index:3;
+		}
+		
+		#car{
+			width:200px;
+			height:200px;
+			position:relative;
+			background-image:url(car.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			transform-style:preserve-3d;
+		}
+
+
+		.flipX{
+			transform:scaleX(-1);
+		}
+
+		#sparkles{
+			width:60px;
+			height:60px;
+			position:absolute;
+			left:-60px;
+			top:60px;
+			background-image:url(sparkles.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			opacity:0%;
+		}
+
+		#leftwing{
+			width:100px;
+			height:100px;
+			background-image:url(leftwing.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			top:0px;
+			transform:rotate(-10deg);
+			opacity:0%;
+			z-index:5;
+		}
+
+
+		#rightwing{
+			width:100px;
+			height:100px;
+			background-image:url(rightwing.jpg);
+			background-size:contain;
+			background-repeat:no-repeat;
+			position:absolute;
+			top:-10px;
+			left:0px;
+			transform:rotate(0deg);
+			opacity:0%;
+      		transform: translateZ(-10px)
+		}
+
+
+	</style>
+</head>
+<body>
+<div id = "box">
+	<div id = "highway"></div>
+	<div id = "car">
+		<div id = "rightwing" class = "wings"></div>
+ 		<div id = "leftwing" class = "wings"></div>
+		<div id = "sparkles"></div>
+	</div>
+</div>
+
+	<script type="text/javascript">
+		const moving = document.getElementById("car")
+		let leftwing = document.getElementById("leftwing")
+		let rightwing = document.getElementById("rightwing")
+
+		let sparkles = document.getElementById("sparkles")
+		// let highway = document.getElementById("highway")
+		moving.style.left = "0px";
+		moving.style.top = "540px"
+		let box = document.getElementById("box")
+
+
+		 var x = parseInt(moving.style.left);
+		 var y = parseInt(moving.style.top);
+
+		 var i = 0
+
+		document.addEventListener("keydown", function(event){
+			console.log(event.keyCode)
+
+			sparkles.style.opacity = "100%"
+
+			if(event.keyCode==39){
+			moving.classList.remove("flipX")
+
+			if(y>=540){
+				x = x+50;
+				moving.style.left = x +"px";
+			}
+				if(y<540){
+					console.log(y)
+					x = x+20;
+					moving.style.left = x +"px";
+					rightwing.style.opacity = "100%"
+					leftwing.style.opacity = "100%"
+					i = i+1
+					console.log(i)
+					if(i%2==0){
+						leftwing.style.transform = "rotate(-30deg)"
+						rightwing.style.transform = "rotate(-20deg)"
+					}
+					else{
+						leftwing.style.transform = "rotate(0deg)"
+						rightwing.style.transform = "rotate(10deg)"
+					}
+				}
+
+			}
+			else if(event.keyCode==37){
+				moving.classList.add("flipX")
+
+				if(y>=540){
+					x = x-50;
+					moving.style.left = x +"px";
+					console.log(y)
+				}
+
+				if(y<540){
+				x = x-20;
+				moving.style.left = x +"px"
+				rightwing.style.opacity = "100%"
+				leftwing.style.opacity = "100%"
+				i = i+1
+					console.log(i)
+					if(i%2==0){
+						leftwing.style.transform = "rotate(-30deg)"
+						rightwing.style.transform = "rotate(-20deg)"
+					}
+					else{
+						leftwing.style.transform = "rotate(0deg)"
+						rightwing.style.transform = "rotate(10deg)"
+					}
+				}
+					
+			}
+		
+			else if(event.keyCode==38){
+				y = y-20;
+				moving.style.top = y+"px"
+				rightwing.style.opacity = "100%"
+				leftwing.style.opacity = "100%"
+				i = i+1
+				console.log(i)
+				if(i%2==0){
+					leftwing.style.transform = "rotate(-30deg)"
+					rightwing.style.transform = "rotate(-20deg)"
+
+				}
+				else{
+					leftwing.style.transform = "rotate(0deg)"
+					rightwing.style.transform = "rotate(10deg)"
+
+				}
+			}
+			else if(event.keyCode==40){
+				y = y+20;
+				moving.style.top = y+"px"
+				rightwing.style.opacity = "100%"
+				leftwing.style.opacity = "100%"
+				i = i+1
+				console.log(i)
+				if(i%2==0){
+					leftwing.style.transform = "rotate(-30deg)"
+					rightwing.style.transform = "rotate(-20deg)"
+
+				}
+				else{
+					leftwing.style.transform = "rotate(0deg)"
+					rightwing.style.transform = "rotate(10deg)"
+
+				}
+			}
+
+
+			document.addEventListener("keyup", function(){
+				sparkles.style.opacity = "0%"
+				if(y>=540){
+					leftwing.style.opacity = "0%"
+					rightwing.style.opacity = "0%"
+				}
+			})
+
+			
+		})
+
+	</script>
+
+</body>
+</html>

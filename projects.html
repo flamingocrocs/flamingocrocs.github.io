@@ -40,11 +40,15 @@
 			text-align:center;
 		}
 
-		#earth:hover a{
+		#earthtext{
+			opacity:0%;
+		}
+		
+		#earth:hover #earthtext{
 			opacity:100%;
 			transition:2s;
 		}
-
+		
 		#projectstitle{
 			text-decoration:none;
 			font-family: "Dosis";
@@ -100,6 +104,12 @@
 
 		#project8{
 			background-image:url(averyCover.jpg);
+		}
+
+		#project9{
+			background-image:url(car.jpg);
+			background-size:contain;
+			background-position:center;
 		}
 
 
@@ -161,7 +171,11 @@
 			<a href="avery.html">Project #8: Avery's Bday Card</a>
 		</div>
 	</div>
-
+	<div class = "projects" id = "project9">
+		<div class = "projectstext" id = project9Text>
+			<a href="car.html">Project #9: Flying Car</a>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
