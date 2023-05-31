@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/sky.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style type="text/css">
+			#test{
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			
+			<section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+				<img id="slide1" src="rock.jpg"style="width:500px;height:500px;background-color:hotpink;position:absolute;left:250px">
+				</img>
+			</section>
+				<section data-background-size="contain" data-background-image="https://www.icegif.com/wp-content/uploads/2022/06/icegif-698.gif" data-auto-animate><p>I like ice cream</p></section>
+				<section data-auto-animate><p style="background-color:red;">I like ice cream</p></section>
+				<section data-auto-animate>
+					<div id = "test"></div>
+				</section>
+		
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

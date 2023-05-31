@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Word Game</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+			font-family:"Dosis";
+			box-sizing:border-box;
+		}
+
+		body{
+			display:flex;
+			align-items: center;
+			justify-content: center;
+			min-height:100vh;
+			background:lightpink;
+		}
+
+		.container{
+			width:450px;
+			border-radius:7px;
+			background:white;
+		}
+
+		.container h2{
+			font-size:25px;
+			font-weight:500;
+			padding:18px 25px;
+		}
+
+		.container .content{
+			margin: 25px 20px 35px;
+		}
+
+		.content .word{
+			font-size:33px;
+			font-weight:500;
+			text-align:center;
+			text-transform:uppercase;
+			letter-spacing:24px;
+			margin-right:-24px;
+		}
+
+		.content .details{
+			margin:25px 0px 20px;
+		}
+
+		.details p{
+			font-size:18px;
+			margin-bottom:10px;
+		}
+
+		.details p b{
+			font-weight:500;
+		}
+
+		.content input{
+			width:100%;
+			height:60px;
+			font-size:18px;
+			border-radius:5px;
+			padding: 0 16px;
+			outline:none;
+			border:1px solid black;
+		}
+
+		.content .buttons{
+			display:flex;
+			margin-top:20px;
+			justify-content: space-between;
+		}
+
+		.buttons button{
+			border:none;
+			outline:none;
+			padding:15px 0;
+			font-size:17px;
+			border-radius:5px;
+			width:calc(100% / 2 - 8px);
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class = "container">
+		<h2>Word Scramble</h2>
+		<div class = "content">
+			<p class = "word"></p>
+			<div class = "details">
+				<p class = "time">Time left: <span><b>30</b>s</span></p>
+				<p class = "hint">Hint: <span>hint placeholder</span></p>
+			</div>
+			<input type="text" placeholder="Enter a word">
+			<div class = "buttons">
+				<button class = "refresh">Refresh Word</button>
+				<button class = "check">Check Word</button>
+			</div>
+
+		</div>
+
+	</div>
+
+<script type="text/javascript">
+	const words = [
+	{word: "addition", hint: "Something learned in math class"},
+	{word: "scramble", hint: "One way of preparing eggs"},
+	{word: "spelling", hint: "Order of letters in a word"},
+	]
+
+	const wordText = document.querySelector(".word"),
+	hintText = document.querySelector(".hint span")
+	refreshBtn = document.querySelector(".refresh"),
+	checkBtn = document.querySelector(".check"),
+	inputField = document.querySelector("input"),
+	timeText = document.querySelector(".time b")
+
+	let correctWord, timer;
+
+	const initTimer = maxTime => {
+		clearInterval(timer)
+		timer = setInterval(() => {
+			if(maxTime>0){
+				maxTime--;
+				return timeText.innerText = maxTime; 
+			}
+			clearInterval(timer)
+		}, 1000)
+	
+	}
+
+
+	const initGame = ()=>{
+		initTimer(30);
+		let randomObj = words[Math.floor(Math.random()* words.length)];
+		let wordArray = randomObj.word.split("")
+		for(let i = wordArray.length - 1; i>0; i--){
+			let j = Math.floor(Math.random()* (i + 1));
+			[wordArray[i], wordArray[j]] = [wordArray[j], wordArray[i]];
+		}
+		wordText.innerText = wordArray.join("");
+		hintText.innerText = randomObj.hint;
+		correctWord = randomObj.word.toLowerCase();
+		inputField.value = "";
+		inputField.setAttribute("maxlength", correctWord.length);
+		console.log(wordArray, randomObj.word)
+	}
+
+	initGame();
+
+	const checkWord = ()=>{
+		let userWord = inputField.value.toLocaleLowerCase();
+		console.log(userWord)
+		console.log(correctWord)
+		if(userWord==correctWord){
+			console.log("user is correct")
+			initGame()
+		}
+
+	}
+
+	refreshBtn.addEventListener("click", initGame)
+	checkBtn.addEventListener("click", checkWord)
+
+
+</script>
+
+</body>
+</html>

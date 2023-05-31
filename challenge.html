@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<style type="text/css">
+
+	body{margin: 0px}
+
+	#box{
+		width:100%;
+		height:100%;
+		background-color:grey;
+		position:fixed;
+		z-index:-1;
+		align-items:center;
+	}
+
+	.players{
+		width:400px;
+		height:400px;
+		border: 1px white;
+		border-style:solid;
+		display:inline-block;
+		background-size:contain;
+		background-repeat:no-repeat;
+		opacity:0%;
+		position:absolute;
+		color:white;
+	}
+
+	#player1{
+		margin:auto;
+		top:0; left:-30%; right:0; bottom:0;	
+	}
+
+	#player2{
+		margin:auto;
+		top:0; left:30%; right:0; bottom:0;	
+	}
+
+	#choice{
+		width:200px;
+		height:30px;
+		position:absolute;
+		margin:auto;
+		top:0;left:-50px;right:0;bottom:0;
+		color:black;
+		z-index:10;
+	}
+
+	/*#choicelabel{
+		width:500px;
+		height:20px;
+		position:absolute;
+		margin:auto;
+		top:-150px;left:300px;right:0;bottom:0;
+		font-family:cursive;
+		color:white;
+	}*/
+
+	#submit{
+		width:100px;
+		height:30px;
+		position:absolute;
+		margin:auto;
+		top:0;left:250px;right:0;bottom:0;
+		color:black;
+		z-index:10;
+	}
+
+	#go{
+		position:absolute;
+		width:70px;
+		height:30px;
+		left:47.5%;
+		top:650px;
+		opacity:0%;
+	}
+
+	#results{
+		width:500px;
+		height:100px;
+		background-color:white;
+		border-style:solid;
+		border:1px white;
+		position:absolute;
+		margin:auto;
+		top:-600px; left:0; right:0; bottom:0;
+		text-align:center;
+		font-size:50px;
+		opacity:0%;
+	}
+	
+</style>
+
+
+</head>
+
+<body>
+<div id = "box">
+<!-- <label for="choice" id = "choicelabel">player 1 choice</label>
+ --><select name = "choices" id = "choice">
+	<option value = "select">select your choice:</option>
+	<option value="rock">rock</option>
+	<option value="paper">paper</option>
+	<option value = "scissors">scissors</option>
+	<input type="submit" value = "Submit" id="submit" onclick="submit()">
+	<input type="submit" value="go" id = "go" onclick="go()">
+	
+
+</select>
+
+<div id = "results"></div>
+
+<div id = "player1" class = "players">1</div>
+<div id = "player2" class = "players">2</div>
+</div>
+<script type="text/javascript">
+	let player1 = document.getElementById("player1")
+	let player2 = document.getElementById("player2")
+	// let choicelabel = document.getElementById("choicelabel")
+	let choice = document.getElementById("choice")
+	let submitbutton = document.getElementById("submit")
+	let opponent = ""
+	let user = ""
+	let results = document.getElementById("results")
+	let goButton = document.getElementById("go")
+
+
+	function submit(){
+		var choiceval = document.getElementById("choice").value
+		console.log(choiceval)
+		player1.style.opacity = "100%"
+		player2.style.opacity = "100%"
+		// choicelabel.style.opacity = "0%"
+		choice.style.opacity = "0%"
+		submitbutton.style.opacity = "0%"
+		goButton.style.opacity = "100%"
+
+
+
+		if(choiceval=="paper"){
+			player1.style.backgroundImage = "url(paper.jpg)"
+			user = "paper"
+		}
+		else if(choiceval=="rock"){
+			player1.style.backgroundImage = "url(rock.jpg)"
+			user = "rock"
+		}
+
+		else if(choiceval=="scissors"){
+			player1.style.backgroundImage = "url(scissors.jpg)"
+			user = "scissors"
+		}
+	}
+
+	function go(){
+		results.innerHTML = ""
+		results.style.opacity = "100%"
+		console.log("go clicked")
+		let number = Math.floor(Math.random()*3);
+		console.log(number)
+
+		if(number==0){
+			player2.style.backgroundImage = "url(paper.jpg)"
+			opponent = "paper"
+		}
+		else if(number==1){
+			player2.style.backgroundImage = "url(rock.jpg)"
+			opponent = "rock"
+		}
+		else if(number==2){
+			player2.style.backgroundImage = "url(scissors.jpg)"
+			opponent = "scissors"
+		}
+
+		if(user==opponent){
+			results.innerHTML = "TIE"
+		}
+
+		if(user=="paper"){
+			if(opponent=="rock"){
+				results.innerHTML = "USER WINS"
+			}
+			else if(opponent=="scissors"){
+				results.innerHTML = "USER LOSES"
+			}
+		}
+
+		if(user=="rock"){
+			if(opponent=="scissors"){
+				results.innerHTML = "USER WINS"
+			}
+			else if(opponent=="paper"){
+				results.innerHTML = "USER LOSES"
+			}
+		}
+
+		if(user=="scissors"){
+			if(opponent=="paper"){
+				results.innerHTML = "USER WINS"
+			}
+			else if(opponent=="rock"){
+				results.innerHTML = "USER LOSES"
+			}
+		}
+	}
+
+
+	
+
+
+</script>
+
+
+
+
+</body>
+</html>

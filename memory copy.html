@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memory</title>
+
+	<style type="text/css">
+		.boardContainer{
+			width:625px;
+			height:500px;
+			position:absolute;
+		}
+
+		.boardContainer .row{
+			background-color:lightgrey;
+			height:100%;
+		}
+
+		.cardContainer{
+			width:100%;
+			height:100%;
+			position:absolute;
+			background:none;
+/*			transform:translate(-50%,-50%);
+*/		}
+
+		.col-3{
+			width:20%;
+		}
+
+		.boardSquare{
+			width:20%;
+			height:25%;
+			padding:0;
+			position:relative;
+			display:inline-block;
+			transform-style:preserve-3d;
+			transition: transform 0.6s;
+		}
+
+		.front{
+			position:absolute;
+			width:100%;
+			height:100%;
+			backface-visibility: hidden;
+			background-color: lightpink;
+			color: black
+		}
+
+		.back{
+			position:absolute;
+			width:100%;
+			height:100%;
+			backface-visibility: hidden;
+			background-size:contain;
+			background-repeat: no-repeat;
+			background-color:lightblue;
+			color: black;
+			transform:rotateY(180deg);
+		}
+
+		.flipCard{
+			transform:rotateY(180deg);
+		}
+		
+
+
+	</style>
+</head>
+<body>
+
+<div class = "container">
+	<div class = "row">
+		<div class = "col-12">
+
+
+		<div id = "boardContainer" class = "boardContainer container">
+			<div id = "gameboard" class = "row">
+			<div class = "cardContainer">
+			<div class = "col-3 boardSquare">
+			        	<div class="front">front</div>
+   						<div class="back">back</div>
+			</div>
+			</div>	
+			</div>
+		</div>
+
+		</div>
+	</div>
+</div>
+
+
+	<script type="text/javascript">
+		let counter = 0
+		var boardContainer=document.getElementById("boardContainer")
+		let squaresHTML=``
+		const board = document.getElementById("gameboard")
+		const backgrounds = ["cutie1.jpg", "cutie2.jpg", "cutie3.jpg", "cutie4.jpg", "cutie5.jpg", "cutie6.jpg", "cutie7.jpg", "cutie8.jpg", "cutie9.jpg", "cutie10.jpg", "cutie11.jpg", "cutie12.jpg", "cutie13.jpg", "cutie14.jpg", "cutie15.jpg", "cutie16.jpg", "cutie17.jpg", "cutie18.jpg", "cutie19.jpg", "cutie20.jpg"]
+
+		function makeSquare(){
+			let background = backgrounds[counter]
+			let backgroundUrl = ("url("+background+")")
+			console.log(backgroundUrl)
+
+			let id = ("square"+(counter+1))
+			console.log(id)
+
+			var gameSquare = document.createElement("div");
+			 squaresHTML += `
+			    <div class = "col-3 boardSquare">
+			        	<div class="front">front</div>
+   						<div class="back">back</div>
+				</div>`
+
+			gameSquare.setAttribute("id", id)
+
+			counter = counter+1  
+			console.log(counter)
+			gameSquare.style.backgroundImage = backgroundUrl
+			console.log(gameSquare)
+		}
+
+
+		while(counter<20){
+			makeSquare()
+		}
+		
+		board.innerHTML = squaresHTML
+
+		const squares = Array.from(document.getElementsByClassName("boardSquare"))
+		console.log(squares)
+
+		let clickCount=0
+
+		squares.forEach(function(element){
+			element.addEventListener("click", function(){
+				clickCount=clickCount+1
+				console.log(clickCount)
+				element.classList.add("flipCard")
+			})
+		})
+
+
+		
+
+	</script>
+
+</body>
+</html>
