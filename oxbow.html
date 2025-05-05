@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+
+	<style type="text/css">	
+
+
+		body{
+			overflow:hidden;
+		}
+
+		.div{
+			width:150px;
+			height:150px;
+			background-repeat: no-repeat;
+			background-size:cover;
+			margin:3px;
+			display:inline-block;
+
+		}
+
+		#box{
+			width:100%;
+			height:100%;
+			position:fixed;
+			overflow:hidden;
+		}
+
+		.video{
+			width:100%;
+			height:100%;
+			position:fixed;
+			display:block;
+			z-index:10;
+			background-color:white;
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<div id = "box"></div>
+
+	<script type="text/javascript">
+		
+	const backgrounds = ["cutie1.jpg", "cutie2.jpg", "cutie3.jpg", "cutie4.jpg", "cutie5.jpg", "cutie6.jpg", "cutie7.jpg", "cutie8.jpg", "cutie9.jpg", "cutie10.jpg", "cutie11.jpg", "cutie12.jpg", "cutie13.jpg", "cutie14.jpg", "cutie15.jpg", "cutie16.jpg", "cutie17.jpg", "cutie18.jpg", "cutie19.jpg", "cutie20.jpg", "cutie21.jpg", "cutie22.jpg", "cutie23.jpg", "cutie24.jpg", "cutie25.jpg", "cutie26.jpg", "cutie27.jpg", "cutie28.jpg", "cutie29.jpg", "cutie30.jpg", "cutie31.jpg", "cutie32.jpg", "cutie33.jpg", "cutie34.jpg", "cutie35.jpg", "cutie36.jpg", "cutie37.jpg", "cutie38.jpg", "cutie39.jpg", "cutie40.jpg", "cutie41.jpg", "cutie42.jpg", "cutie43.jpg", "cutie44.jpg", "cutie45.jpg",]
+
+	const videos = ["video1.mp4"]
+	
+	let counter = 0
+
+	
+	function makeDiv(){
+		let background = backgrounds[counter]
+		let backgroundUrl = ("url("+background+")")
+		console.log(backgroundUrl)
+		let number = (counter+1)
+		let numString = number.toString()
+		let divID = ("cutie"+numString)
+		console.log(divID)
+
+		var div = document.createElement("div");
+		div.classList.add("div");
+		document.body.appendChild(div);
+
+		div.style.backgroundImage = backgroundUrl
+		div.setAttribute('id', divID)
+		console.log(div)
+
+		counter = counter+1
+		console.log(counter)
+		}
+
+	while(counter<46){
+			makeDiv()
+		}
+
+	function makeVid(){
+		let videoURL = videos[0]
+		var video = document.createElement("video");
+		video.classList.add("video")
+		video.src = videoURL
+		video.autoplay = true;
+		video.controls = true;
+		video.muted = false;
+		box.appendChild(video)
+		video.onended = function(){
+			console.log("video ended")
+			video.remove()
+		}
+	}
+
+	const divs = Array.from(document.getElementsByClassName("div"));
+
+	divs.forEach(addEventListener("click", function(){
+		console.log("clicked")
+		console.log(divs.id)
+		makeVid()
+	}))
+
+	</script>
+
+</body>
+</html>
