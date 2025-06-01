@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RBMK Reactor Diagram</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+      background: #fffeeb;
+      color: white;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      background: #6e8478;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition:0.5s;
+    }
+
+    .menu a:hover{
+      color:#db7f51;
+    }
+
+    .container {
+      position: relative;
+      height: calc(100vh - 60px);
+      aspect-ratio: 3 / 2;
+      background-image: url('rbmk.jpg');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+    }
+
+    .hotspot {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 28px;
+      font-weight: bold;
+      color: black;
+      transform: translate(-50%, -50%);
+      border: 2px solid black;
+    }
+
+    .modal, .overlay {
+      position: fixed;
+      display: none;
+      z-index: 1000;
+    }
+
+    .overlay {
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 900;
+    }
+
+    .modal.show, .overlay.show {
+      display: block;
+    }
+
+    .modal {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #6e8478;
+      padding: 20px;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      max-height: 80vh;
+      max-width: 90vw;
+      width: auto;
+      overflow: auto;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      max-height: 60vh;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    .modal-content.vertical img {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .modal-content.vertical p {
+      text-align: left;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .nav-buttons button {
+      background: #fff;
+      color: #6e8478;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .nav-buttons button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu">
+    <a href="about.html">About</a>
+    <a href="chernobyl-reactor.html">Reactor Design</a>
+    <a href="timeline.html">Timeline</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+
+  <div class="container">
+    <div class="hotspot" style="top: 76.2%; left:52.6%;" data-part="1">1</div>
+    <div class="hotspot" style="top: 62.3%; left: 63.4%;" data-part="2">2</div>
+    <div class="hotspot" style="top: 53%; left: 75.5%;" data-part="3">3</div>
+    <div class="hotspot" style="top: 74.8%; left: 85.6%;" data-part="4">4</div>
+    <div class="hotspot" style="top: 78.5%; left: 68.8%;" data-part="5">5</div>
+    <div class="hotspot" style="top: 86.6%; left: 71.1%;" data-part="6">6</div>
+    <div class="hotspot" style="top: 79.3%; left: 60.2%;" data-part="7">7</div>
+    <div class="hotspot" style="top: 67.6%; left: 55.1%;" data-part="8">8</div>
+    <div class="hotspot" style="top: 91.4%; left: 57.35%;" data-part="9">9</div>
+    <div class="hotspot" style="top: 46.5%; left: 46%;" data-part="10">10</div>
+    <div class="hotspot" style="top: 13.8%; left: 47.8%;" data-part="11">11</div>
+    <div class="hotspot" style="top: 45%; left: 50.8%;" data-part="12">12</div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="modal" id="modal">
+    <h2 id="modal-title"></h2>
+    <div class="modal-content" id="modal-content">
+      <img id="modal-image" src="" alt="" />
+      <p id="modal-description"></p>
+    </div>
+    <div class="nav-buttons" id="nav-buttons" style="display: none;">
+      <button id="prev-slide">←</button>
+      <button id="next-slide">→</button>
+    </div>
+    <button onclick="closeModal()">Close</button>
+  </div>
+
+  <script>
+    const descriptions = [
+      { id: 1, slides: [
+          { title: "Reactor Core", description: "The reactor core is the heart of the reactor, where nuclear energy is generated through the fission of uranium-235.", image: "reactor-core.jpg" },
+          { title: "Fuel", description: "Inside the core, nuclear reactions take place within the fuel assemblies. Each assembly is a bundle of uranium dioxide pellets stacked inside thin tubes of zirconium-niobium alloy cladding, and placed inside a stack of graphite blocks. As the reactor operates, fission occurs when a neutron strikes a U-235 nucleus, splitting it into smaller radioactive fragments (Cs-137, I-131, Sr-90). Unlike most Western reactors, the RBMK reactor uses non-enriched uranium dioxide (UO2) fuel. This fuel has a lower concentration of the reactive Uranium-235,  and thus requires a powerful moderator to sustain a chain reaction.", image: "fuel-assemblies.jpg" },
+          { title: "Graphite Moderator", description: "A lattice of graphite blocks act as a neutron moderator, slowing down fast neutrons and making them more likely to collide with a U-235 molecule and start a fission reaction. The graphite doesn’t chemically react with the fuel or coolant under normal conditions, but at high temperatures, it can react with oxygen (C + O₂ → CO₂), which is why oxygen infiltration into the core is dangerous.", image: "core-graphite.jpg" }
+        ]
+      },
+      { id: 2, title: "Steamwater Pipes", description: "Each reactor has four main circulation loops, each with its own set of steamwater pipes, pumps, and drum separators.", image: "images/steamwater-pipes.jpg" },
+      { id: 3, title: "Drum Separators", description: "Drum separators are massive, horizontal steel cylinders mounted above the reactor core, acting as the key component for separating steam from water.", image: "images/drum-separators.jpg" },
+      { id: 4, title: "Main Circulation Pumps", description: "The main circulation pumps are designed to keep water constantly flowing through the reactor core.", image: "main-pumps.jpg" },
+      { id: 5, title: "Group Distribution Manifold", description: "Another large piping structure that takes feedwater from the circulation pumps and evenly distributes it into more pipelines.", image: "images/group-distribution.jpg" },
+      { id: 6, title: "Water Pipelines", description: "These smaller channels are fed with coolant water by the group distribution system.", image: "images/water-pipelines.jpg" },
+      { id: 7, title: "Side Biological Shield", description: "The biological shields in an RBMK reactor are thick layers of materials that surround the reactor core.", image: "images/side-biological-shield.jpg" },
+      { id: 8, title: "Upper Biological Shield", description: "The upper biological shield sits on top of the reactor core, providing radiation protection.", image: "upper-shield.jpg" },
+      { id: 9, title: "Lower Biological Shield", description: "Counterpart to the upper shield; it sits beneath the reactor core.", image: "images/lower-biological-shield.jpg" },
+      { id: 10, title: "Refuelling Machine", description: "One of the most unique features of the RBMK reactor is its ability to be refueled while still operating at full power.", image: "images/refuelling-machine.jpg" },
+      { id: 11, title: "Gantry Crane", description: "The gantry crane is a large overhead crane system that moves components like the refuelling machine.", image: "images/gantry-crane.jpg" },
+      { id: 12, title: "Spent Fuel Storage Pool", description: "The spent fuel storage pool is where used fuel assemblies are stored after they’re removed from the core.", image: "images/spent-fuel-pool.jpg" }
+    ];
+
+    const hotspots = document.querySelectorAll('.hotspot');
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalImage = document.getElementById('modal-image');
+    const modalContent = document.getElementById('modal-content');
+    const navButtons = document.getElementById('nav-buttons');
+    const prevSlide = document.getElementById('prev-slide');
+    const nextSlide = document.getElementById('next-slide');
+
+    let currentSlide = 0;
+    let currentSlides = null;
+
+    hotspots.forEach(spot => {
+      spot.addEventListener('click', () => {
+        const part = parseInt(spot.dataset.part);
+        const partData = descriptions.find(d => d.id === part);
+
+        if (partData) {
+          if (part === 1) {
+            currentSlides = partData.slides;
+            currentSlide = 0;
+            updateSlide();
+            navButtons.style.display = 'flex';
+          } else {
+            currentSlides = null;
+            modalTitle.textContent = partData.title;
+            modalDescription.textContent = partData.description || "Description not available.";
+            modalImage.src = partData.image || "";
+            modalImage.alt = partData.title || "";
+            navButtons.style.display = 'none';
+            adjustLayout();
+          }
+        } else {
+          modalTitle.textContent = `Part ${part}`;
+          modalDescription.textContent = "Description not available.";
+          modalImage.src = "";
+          modalImage.alt = "";
+          navButtons.style.display = 'none';
+          adjustLayout();
+        }
+
+        modal.classList.add('show');
+        overlay.classList.add('show');
+      });
+    });
+
+    function updateSlide() {
+      const slide = currentSlides[currentSlide];
+      modalTitle.textContent = slide.title;
+      modalDescription.textContent = slide.description;
+      modalImage.src = slide.image;
+      modalImage.alt = slide.title;
+
+      prevSlide.disabled = currentSlide === 0;
+      nextSlide.disabled = currentSlide === currentSlides.length - 1;
+
+      adjustLayout();
+    }
+
+    function adjustLayout() {
+    const image = modalImage;
+
+    image.onload = () => {
+      const ratio = image.naturalWidth / image.naturalHeight;
+
+      if (ratio >= 1) {
+        // Wide image: image above text
+        modalContent.classList.add('vertical');
+      } else {
+        // Tall image: side-by-side layout
+        modalContent.classList.remove('vertical');
+      }
+    };
+
+    // Trigger immediately if cached
+    if (image.complete) {
+      image.onload();
+    }
+  }
+
+function updateSlide() {
+  const slide = currentSlides[currentSlide];
+  modalTitle.textContent = slide.title;
+  modalDescription.textContent = slide.description;
+  modalImage.src = slide.image;
+  modalImage.alt = slide.title;
+
+  prevSlide.disabled = currentSlide === 0;
+  nextSlide.disabled = currentSlide === currentSlides.length - 1;
+
+  // Handle layout after image loads
+  modalImage.onload = () => {
+    const ratio = modalImage.naturalWidth / modalImage.naturalHeight;
+
+    if (ratio > 1.2) {
+      // Clearly wide image: put above text
+      modalContent.classList.add('vertical');
+    } else {
+      // Tall or almost square: side-by-side
+      modalContent.classList.remove('vertical');
+    }
+  };
+}
+
+
+  hotspots.forEach(spot => {
+    spot.addEventListener('click', () => {
+      const part = parseInt(spot.dataset.part);
+      const partData = descriptions.find(d => d.id === part);
+
+      if (partData) {
+        if (part === 1) {
+          currentSlides = partData.slides;
+          currentSlide = 0;
+          updateSlide();
+          navButtons.style.display = 'flex';
+        } else {
+          currentSlides = null;
+          modalTitle.textContent = partData.title;
+          modalDescription.textContent = partData.description || "Description not available.";
+          modalImage.src = partData.image || "";
+          modalImage.alt = partData.title || "";
+          navButtons.style.display = 'none';
+
+          adjustLayout();
+        }
+      } else {
+        modalTitle.textContent = `Part ${part}`;
+        modalDescription.textContent = "Description not available.";
+        modalImage.src = "";
+        modalImage.alt = "";
+        navButtons.style.display = 'none';
+      }
+
+      modal.classList.add('show');
+      overlay.classList.add('show');
+    });
+  });
+
+  prevSlide.addEventListener('click', () => {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  });
+
+  nextSlide.addEventListener('click', () => {
+    if (currentSlide < currentSlides.length - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  });
+
+  function closeModal() {
+    modal.classList.remove('show');
+    overlay.classList.remove('show');
+  }
+
+  overlay.addEventListener('click', closeModal);
+  </script>
+</body>
+</html>
