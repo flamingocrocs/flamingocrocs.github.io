@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chernobyl Timeline</title>
+  <style>
+    body {
+      margin: 0;
+      font: 1.2rem "Fira Sans", sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #6e8478;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      background: #384745;
+      z-index: 10;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #fffeeb;
+      font-weight: bold;
+      transition: 0.5s;
+    }
+    .menu a:hover {
+      color: #db7f51;
+    }
+
+    /* ——————————— make .content a two-column flex container ——————————— */
+    .content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;  /* no scrollbar on .content itself */
+      background: #6e8478;
+      color: #fffeeb;
+    }
+
+    /* LEFT PANE: holds text on top and second image below */
+    .left-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-sizing: border-box;
+
+    }
+
+    /* Text area (top-left) */
+    #event-display {
+      padding: 10px;
+      padding-left:20px;
+      overflow-y: auto;  /* scroll only if text is too long */
+      box-sizing: border-box;
+    }
+
+    /* Second image area (beneath text, fills remaining left-pane height) */
+    #event-second-image {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;  /* align image to left */
+      align-items: flex-start;      /* start at top of this area */
+      padding: 10px;
+      box-sizing: border-box;
+      overflow: hidden;             /* keep image contained */
+    }
+    #event-second-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    /* RIGHT PANE: first image, fills full height of .content */
+    #event-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow: hidden;  /* keep image contained */
+    }
+
+    /* Default: if only one image, let it fill 100% height */
+    #event-image.single img {
+      max-height: 90%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      padding-top:none;
+    }
+    /* If there’s a second image, first image maxes at 60% height */
+    #event-image.with-second img {
+      max-height: 60%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    /* TIMELINE AT BOTTOM */
+    .timeline-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 0;
+      background: #384745;
+    }
+    .timeline-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+    .timeline {
+      position: relative;
+      height: 50px;
+      min-width: 100%;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 4px;
+      background: #fffeeb;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .event-point {
+      position: absolute;
+      color: white;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background: #fffeeb;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      font: "Fira Sans", sans-serif;
+      border: 2px transparent;
+    }
+    .selected-event-point {
+      border: 2px solid #db7f51;
+    }
+    .event-point.cluster {
+      background: #fffeeb;
+      opacity: 0.5;
+      color: white;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    /* ZOOM CONTROLS */
+    .zoom-controls {
+      position: fixed;
+      bottom: 50px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #222;
+      padding: 6px 10px;
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .zoom-controls button {
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      background: none;
+      border: 1px solid white;
+      padding: 5px 8px;
+      border-radius: 5px;
+    }
+    #zoom-slider {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu">
+    <a href="about.html">About</a>
+    <a href="chernobyl-reactor.html">Reactor Design</a>
+    <a href="timeline.html">Timeline</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+
+  <!-- .content now has two columns:
+       - left-pane: text on top, second image below
+       - right-pane: first image -->
+  <div class="content">
+    <div class="left-pane">
+      <div id="event-display">
+        <h1>Welcome to the Chernobyl Timeline</h1>
+        <p>Click a point below to learn more about each event.</p>
+      </div>
+      <div id="event-second-image"></div>
+    </div>
+    <div id="event-image" class="single"></div>
+  </div>
+
+  <div class="timeline-container">
+    <div class="timeline-scroll">
+      <div class="timeline" id="timeline">
+        <div class="timeline-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="zoom-controls">
+    <button id="zoom-out">−</button>
+    <input type="range" id="zoom-slider" min="0.2" max="5" step="0.1" value="1">
+    <button id="zoom-in">+</button>
+    <button id="zoom-reset">Full Timeline</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const timeline = document.getElementById("timeline");
+      const timelineLine = timeline.querySelector(".timeline-line");
+      const eventDisplay = document.getElementById("event-display");
+      const firstImageContainer = document.getElementById("event-image");
+      const secondImageContainer = document.getElementById("event-second-image");
+      const scrollContainer = document.querySelector(".timeline-scroll");
+      const zoomSlider = document.getElementById("zoom-slider");
+
+      // Events array now includes `image` and `secondImage` fields
+      const events = [
+        {
+          id: 1,
+          time: 'April 25, 1986, 12:00 am',
+          minutes: 0,
+          label: 'Routine Shutdown & Test Preparation Begins',
+          description: 'As part of the shutdown, a safety test was scheduled and approved by Chief Engineer Nikolai Fomin. The purpose of the test was to determine whether the momentum of the plant’s steam turbines could generate enough electricity to power the coolant pumps during the brief gap between a power outage and the activation of the plant’s emergency diesel generators. This was a critical concern, as a total loss of power would stop the coolant pumps and risk a meltdown of the reactor core.',
+          image: 'upper-shield.jpg',
+          secondImage: 'upper-shield-2.jpg'
+        },
+        {
+          id: 2,
+          time: 'April 25, 1986, 1:00 am',
+          minutes: 60,
+          label: 'Power Reduction Begins',
+          description: 'Operators at the Chernobyl Nuclear Power Plant begin gradually reducing the power output of Reactor No. 4 from its normal operating level of 3,200 megawatts. This slow and controlled power-down was the first step in the scheduled shutdown process and was carried out over several hours to maintain reactor stability and ensure safety throughout the procedure.',
+          image: 'img2.jpg',
+          secondImage: ''  // no second image for event 2
+        },
+        {
+          id: 3,
+          time: 'April 25, 1986, 1:05 pm',
+          minutes: 785,
+          label: '',
+          description: 'No. 7 turbo generator is taken offline; supply of power to the unit is switched to the No. 8 turbo generator',
+          image: 'img31.jpg',
+          secondImage: 'img32.jpg'
+        },
+        {
+          id: 4,
+          time: 'April 25, 1986, 2:00 pm',
+          minutes: 840,
+          label: 'Shutdown Delayed, SAOR Disengaged',
+          description: 'As part of the experimental procedure, operators disable the reactor’s emergency core cooling system, known in Russian as SAOR. The intention was to prevent a thermal shock that could occur if a large volume of cold water—approximately 350 m³—was suddenly introduced into the hot reactor core. This sudden change in temperature could potentially cause cracks in the uranium fuel rods or graphite moderators; however, it also could have greatly reduced the amount of steam in the core and prevented the explosion.\n\nAt this time, the reactor is operating at half-power of 1600 megawatts, and is planned to be lowered even further. However, a load dispatcher in the city of Kiev requests that the shutdown be postponed due to high demand for electricity. This request results in the test being delayed 9 hours, during which time the reactor continues to operate in an unstable, low-power state with the emergency cooling system disconnected.',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 5,
+          time: 'April 25, 1986, 11:10 pm',
+          minutes: 1390,
+          label: 'Reduction of Power is Resumed',
+          description: 'Xenon poisoning is a phenomenon in nuclear reactors caused by the buildup of the fission product Xenon-135, which has a high neutron absorption cross-section and therefore acts as a "poison" by reducing the reactivity of the reactor core. Xe-135 is not produced directly in large quantities during fission but rather forms through the radioactive decay of iodine-135, another fission product with a half-life of approximately 6.6 hours. Once formed, Xe-135 can either absorb a neutron—transforming into non-poisonous Xe-136—or decay naturally with a half-life of about 9.2 hours. In a reactor operating at stable power, these processes balance out; however, when power is reduced, neutron flux decreases, so xenon production continues while its burn-off slows dramatically. This leads to a condition known as xenon poisoning—an accumulation of Xe-135 in the reactor core, which suppresses reactivity. Recovering from it usually requires either waiting for Xe-135 to decay naturally (over many hours) or manually increasing power to burn it off, which must be done carefully to avoid instability. However, at 11:10 PM, instead of raising power to recover from Xenon poisoning, the operators further reduced the reactor\'s power output as part of the test preparation. This decision––likely made under pressure to complete the test overnight—pushed the reactor into an even deeper iodine pit.',
+          image: 'img5.jpg',
+          secondImage: ''
+        },
+        {
+          id: 6,
+          time: 'April 26, 1986, 12:00 am',
+          minutes: 1440,
+          label: 'Shift Change',
+          description: 'At midnight, a shift change brought in new operators, with Aleksandr Akimov assuming the role of shift chief and Leonid Toptunov taking over as the senior engineer responsible for the reactor control system (SIUR). Anatoliy Dyatlov, the deputy chief engineer, remained on-site to oversee the experiment. This change in personnel meant that those responsible for managing the reactor during the most critical phases were not the same people who had overseen its earlier condition changes. The transition introduced a level of discontinuity and potential confusion in handling the increasingly unstable reactor.',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 7,
+          time: 'April 26, 1986, 12:05 am',
+          minutes: 1445,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 8,
+          time: 'April 26, 1986, 12:27 am',
+          minutes: 1467,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 9,
+          time: 'April 26, 1986, 12:28 am',
+          minutes: 1468,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 10,
+          time: 'April 26, 1986, 1:00 am',
+          minutes: 1500,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 11,
+          time: 'April 26, 1986, 1:07 am',
+          minutes: 1507,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 12,
+          time: 'April 26, 1986, 1:22:30 am',
+          minutes: 1522.5,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 13,
+          time: 'April 26, 1986, 1:23:04 am',
+          minutes: 1523.066,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 14,
+          time: 'April 26, 1986, 1:23:40 am',
+          minutes: 1523.66,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        },
+        {
+          id: 15,
+          time: 'April 26, 1986, 1:23:43 am',
+          minutes: 1523.7166,
+          label: '',
+          description: '',
+          image: '',
+          secondImage: ''
+        }
+      ];
+
+      let zoomLevel = 1;
+      const baseSpacing = 0.5;   // pixels per minute at zoom = 1
+      const minSeparation = 20;  // minimum px between two points before clustering
+
+      // Update the slider whenever zoomLevel changes
+      function setZoomLevel(newZoom, focusEvent = null) {
+        zoomLevel = Math.max(0.2, Math.min(newZoom, 5));
+        zoomSlider.value = zoomLevel;
+        renderTimeline(focusEvent);
+      }
+
+      // Smooth horizontal scroll helper
+      function smoothScrollTo(element, target, duration = 500) {
+        const start = element.scrollLeft;
+        const change = target - start;
+        const startTime = performance.now();
+        function animateScroll(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 0.5 - Math.cos(progress * Math.PI) / 2;
+          const nextScrollLeft = start + change * ease;
+          const maxScrollLeft = element.scrollWidth - element.clientWidth;
+          element.scrollLeft = Math.max(0, Math.min(nextScrollLeft, maxScrollLeft));
+          if (progress < 1) requestAnimationFrame(animateScroll);
+        }
+        requestAnimationFrame(animateScroll);
+      }
+
+      // Zoom animation helper
+      function animateZoomTo(targetZoom, focusEvent = null, steps = 10, duration = 300) {
+        const startZoom = zoomLevel;
+        const zoomDiff = targetZoom - startZoom;
+        let step = 0;
+        const interval = duration / steps;
+        function stepZoom() {
+          step++;
+          const progress = step / steps;
+          const ease = 0.5 - Math.cos(progress * Math.PI) / 2;
+          zoomLevel = startZoom + zoomDiff * ease;
+          zoomSlider.value = zoomLevel;
+          renderTimeline(focusEvent);
+          if (step < steps) setTimeout(stepZoom, interval);
+        }
+        stepZoom();
+      }
+
+      // Build timeline points and handle clustering
+      function renderTimeline(focusEvent = null) {
+        // Remove existing points
+        timeline.querySelectorAll(".event-point").forEach(el => el.remove());
+
+        // x-position = minutes * spacing * zoomLevel
+        const getX = minutes => minutes * baseSpacing * zoomLevel;
+
+        // Cluster events that are too close together
+        const clustered = [];
+        let currentCluster = [];
+        for (let i = 0; i < events.length; i++) {
+          const event = events[i];
+          const x = getX(event.minutes);
+          if (currentCluster.length === 0) {
+            currentCluster.push({ ...event, x });
+          } else {
+            const lastX = currentCluster[currentCluster.length - 1].x;
+            if (x - lastX < minSeparation) {
+              currentCluster.push({ ...event, x });
+            } else {
+              clustered.push(currentCluster);
+              currentCluster = [{ ...event, x }];
+            }
+          }
+        }
+        if (currentCluster.length > 0) clustered.push(currentCluster);
+
+        // Set timeline width so it can scroll
+        const maxMinutes = events[events.length - 1].minutes;
+        const timelineWidth = maxMinutes * baseSpacing * zoomLevel + scrollContainer.clientWidth;
+        timeline.style.width = `${timelineWidth}px`;
+        timelineLine.style.width = `${timelineWidth}px`;
+
+        // For each cluster or single event, create a point
+        clustered.forEach(group => {
+          const isCluster = group.length > 1;
+          const centerX = group.reduce((sum, e) => sum + e.x, 0) / group.length;
+          const point = document.createElement("div");
+          point.classList.add("event-point");
+          point.style.left = `${centerX}px`;
+
+          if (isCluster) {
+            point.classList.add("cluster");
+            point.innerText = group.length;
+            point.addEventListener("click", () => {
+              // Zoom in on cluster
+              const min = group[0].minutes;
+              const max = group[group.length - 1].minutes;
+              const range = max - min || 1;
+              const newZoom = Math.max(
+                (minSeparation * (group.length - 1)) / (range * baseSpacing),
+                zoomLevel + 0.5
+              );
+              animateZoomTo(newZoom, group[0]);
+            });
+          } else {
+            // Single event
+            const ev = group[0];
+            point.title = `Event ${ev.id}: ${ev.label}`;
+            point.innerText = ` ${ev.id}`;
+            point.addEventListener("click", () => {
+              // 1) Update text on top-left
+              eventDisplay.innerHTML = `
+                <h2>${ev.time}</h2>
+                <h2>${ev.label}</h2>
+                <p>${ev.description}</p>
+              `;
+
+              // 2) Update first image (right pane) and toggle classes
+              if (ev.image) {
+                if (ev.secondImage) {
+                  firstImageContainer.classList.remove("single");
+                  firstImageContainer.classList.add("with-second");
+                } else {
+                  firstImageContainer.classList.remove("with-second");
+                  firstImageContainer.classList.add("single");
+                }
+                firstImageContainer.innerHTML = `<img src="${ev.image}" alt="${ev.label}">`;
+              } else {
+                firstImageContainer.classList.remove("with-second", "single");
+                firstImageContainer.innerHTML = "";
+              }
+
+              // 3) Update second image (beneath text on left)
+              if (ev.secondImage) {
+                secondImageContainer.innerHTML = `<img src="${ev.secondImage}" alt="${ev.label} - image 2">`;
+              } else {
+                secondImageContainer.innerHTML = "";
+              }
+
+              // 4) Highlight selected point
+              document.querySelectorAll(".event-point").forEach(p => 
+                p.classList.remove("selected-event-point")
+              );
+              point.classList.add("selected-event-point");
+
+              // 5) Center timeline on this event
+              const scrollX = Math.max(0, getX(ev.minutes) - scrollContainer.clientWidth / 2);
+              smoothScrollTo(scrollContainer, scrollX);
+            });
+          }
+
+          timeline.appendChild(point);
+        });
+
+        // If zooming into a cluster, center on the first event of that cluster
+        if (focusEvent !== null) {
+          const scrollX = Math.max(0, getX(focusEvent.minutes) - scrollContainer.clientWidth / 2);
+          smoothScrollTo(scrollContainer, scrollX);
+        }
+      }
+
+      // Wire up zoom slider and buttons
+      zoomSlider.addEventListener("input", () => {
+        setZoomLevel(parseFloat(zoomSlider.value));
+      });
+      document.getElementById("zoom-in").addEventListener("click", () => {
+        setZoomLevel(zoomLevel + 0.2);
+      });
+      document.getElementById("zoom-out").addEventListener("click", () => {
+        setZoomLevel(zoomLevel - 0.2);
+      });
+      document.getElementById("zoom-reset").addEventListener("click", () => {
+        setZoomLevel(1);
+        scrollContainer.scrollLeft = 0;
+      });
+
+      // Initial render
+      renderTimeline();
+    });
+  </script>
+</body>
+</html>
